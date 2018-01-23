@@ -1,0 +1,223 @@
+<style>.angular-openlayers-map {
+    /*width: 1240px;
+    height: 680px;*/
+    /*height: 90px;*/
+}
+
+.affix {
+    top: 20px;
+}
+
+#control {
+    width: 100%;
+    height: 100%;
+    background-color: #f1f1f1;
+}
+
+#cont {
+    background-color: #f1f1f1;
+}
+
+#sidebar {
+    background-color: #f1f1f1;
+}
+
+#map {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+    width: 100%;
+}
+
+.nav-link-title {
+    color: rgba(214, 153, 71, 0.77);
+}
+
+.bg-custom {
+    background-color: #6c757d!important;
+}
+
+.container-fluid-map {
+    margin-bottom: 0;
+    border-radius: 0;
+    /*width: 100%;*/
+    /*margin: 0 auto;*/
+    /*margin-top:50px;*/
+}
+
+.container-fluid-p {
+    margin-bottom: 0;
+    border-radius: 0;
+    /*height: 100%;*/
+}
+
+.panel-default {
+    /*padding-top: 50px;*/
+    margin-bottom: 5px;
+    border-radius: 0;
+}
+
+#TrypByDistance {
+    /*padding-top: 50px;*/
+    margin-bottom: 5px;
+    border-radius: 0;
+}
+
+
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+
+html,
+body {
+    overflow-x: hidden;
+    /* Prevent scroll on narrow devices */
+    height: 100%;
+}
+
+body {
+    padding-top: 0px;
+    height: 100%;
+    background-color: #f1f1f1;
+}
+
+footer {
+    /*padding: 20px 0;*/
+    background-color: #181714d8;
+    color: rgb(241, 228, 46);
+    margin-bottom: 0;
+    border-radius: 0;
+    width: 100%;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+pfooter {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+}
+
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ * Greater thav 768px shows the menu by default and also flips the semantics
+ * The issue is to show menu for large screens and to hide for small
+ * Also need to do something clever to turn off the tabs for when the navigation is hidden
+ * Otherwise keyboard users cannot find the focus point
+ * (For now I will ignore that for mobile users and also not worry about
+ * screen re-sizing popping the menu out.)
+ */
+
+@media screen and (min-width: 768px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all .25s ease-out;
+        -moz-transition: all .25s ease-out;
+        transition: all .25s ease-out;
+    }
+    .row-offcanvas-right {
+        right: 0;
+    }
+    .row-offcanvas-left {
+        left: 0;
+    }
+    .row-offcanvas-right .sidebar-offcanvas {
+        right: -25%;
+        /* 3 columns */
+        background-color: rgb(255, 255, 255);
+    }
+    .row-offcanvas-left .sidebar-offcanvas {
+        left: -25%;
+        /* 3 columns */
+        background-color: rgb(255, 255, 255);
+    }
+    .row-offcanvas-right.active {
+        right: 25%;
+        /* 3 columns */
+    }
+    .row-offcanvas-left.active {
+        left: 25%;
+        /* 3 columns */
+    }
+    .row-offcanvas-right.active .sidebar-offcanvas {
+        background-color: rgb(254, 254, 254);
+    }
+    .row-offcanvas-left.active .sidebar-offcanvas {
+        background-color: rgb(254, 254, 254);
+    }
+    .row-offcanvas .content {
+        width: 75%;
+        /* 9 columns */
+        -webkit-transition: all .25s ease-out;
+        -moz-transition: all .25s ease-out;
+        transition: all .25s ease-out;
+    }
+    .row-offcanvas.active .content {
+        width: 100%;
+        /* 12 columns */
+    }
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 25%;
+        /* 3 columns */
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all .25s ease-out;
+        -moz-transition: all .25s ease-out;
+        transition: all .25s ease-out;
+    }
+    .row-offcanvas-right {
+        right: 0;
+    }
+    .row-offcanvas-left {
+        left: 0;
+    }
+    .row-offcanvas-right .sidebar-offcanvas {
+        right: -50%;
+        /* 6 columns */
+    }
+    .row-offcanvas-left .sidebar-offcanvas {
+        left: -50%;
+        /* 6 columns */
+    }
+    .row-offcanvas-right.active {
+        right: 50%;
+        /* 6 columns */
+    }
+    .row-offcanvas-left.active {
+        left: 50%;
+        /* 6 columns */
+    }
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 50%;
+        /* 6 columns */
+    }
+}
+
+</style>

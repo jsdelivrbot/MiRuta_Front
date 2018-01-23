@@ -1,0 +1,15 @@
+{
+  "name": "openlayers",
+  "homepage": "https://github.com/openlayers/openlayers",
+  "version": "4.6.4",
+  "_release": "4.6.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.6.4",
+    "commit": "0cab01db5841121bea6b58d51b4dbcd08eb28eee"
+  },
+  "_source": "https://github.com/openlayers/openlayers.git",
+  "_target": "^4.6.4",
+  "_originalSource": "openlayers",
+  "_direct": true
+}

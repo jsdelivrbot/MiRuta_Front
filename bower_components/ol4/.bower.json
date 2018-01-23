@@ -1,0 +1,22 @@
+{
+  "name": "ol4",
+  "version": "4.0.1",
+  "description": "OpenLayers 4",
+  "main": [
+    "ol.js",
+    "ol-debug.js",
+    "ol.css"
+  ],
+  "ignore": [],
+  "homepage": "https://github.com/ericturpin/ol4",
+  "_release": "4.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.0.1",
+    "commit": "fdc36973bd66a0d9882df68ba7a7b7b8279ee85f"
+  },
+  "_source": "https://github.com/ericturpin/ol4.git",
+  "_target": "^4.0.1",
+  "_originalSource": "ol4",
+  "_direct": true
+}
