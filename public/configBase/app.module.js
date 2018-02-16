@@ -12,7 +12,10 @@
         'navigationbar',
         'pagefooter',
         'routes',
-        'mapModule'
+        'mapModule',
+        'adminModule',
+        'servicesRestModule',
+        'angular-storage'
     ]).run(['$rootScope',
         function ($rootScope) {
             $rootScope.title = "MiRuta";
