@@ -44,12 +44,8 @@
                 .then(function (data) {
                     // vm.totalItems = vm.pruebaJson.length;
                     console.log("Datos recuperados con EXITO! = TOKEN AUTH");
-                    // una vez obtenida la respuesta del servidor realizamos las sigientes acciones
-                    console.log(data);
-                    console.log(data.token);
                     store.set('jwt',data.token);
-                    // state.go('home');
-                    location.path('/home');
+                    location.path('/adminHome');
                 })
                 .catch(function (err) {
                     alert("Los datos ingresados no son correctos!");

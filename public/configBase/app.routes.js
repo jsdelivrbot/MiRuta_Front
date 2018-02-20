@@ -26,7 +26,7 @@
                     templateUrl: base_route + path.REGISTER_VIEW
                 })
                 .when('/admin', {
-                    templateUrl: base_route + path.ADMIN_VIEW,
+                    templateUrl: base_route + path.ADMIN_LOGIN_VIEW,
                 })
                 .when('/home', {
                     templateUrl: base_route + path.HOME_VIEW
@@ -34,8 +34,23 @@
                 .when('/recorrido', {
                     templateUrl: base_route + path.RECORRIDO_VIEW
                 })
+                .when('/transportes', {
+                    templateUrl: base_route + path.TRANSPORTES_VIEW
+                })
+                .when('/ptoInteres', {
+                    templateUrl: base_route + path.PTOINTERES_VIEW
+                })
+                .when('/adminHome', {
+                    templateUrl: base_route + path.ADMIN_HOME_VIEW
+                })
                 .when('/adminRecorrido', {
                     templateUrl: base_route + path.ADMIN_RECORRIDO_VIEW
+                })
+                .when('/adminTransporte', {
+                    templateUrl: base_route + path.ADMIN_TRANSPORTE_VIEW
+                })
+                .when('/adminPtoInteres', {
+                    templateUrl: base_route + path.ADMIN_PTOINTERES_VIEW
                 })
                 .otherwise({
                     redirectTo: '/home'
