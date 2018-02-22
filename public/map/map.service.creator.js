@@ -20,14 +20,15 @@
 
         // Retorna un mapa
         function getMap() {
-            if (map == null) {
-                map = createMap();
-                console.log("inicializa el mapa");
-                // if (map == null){
-                //     console.log("el mapa sige en null!!!");
-                // }
-            }
-            return map;
+            // if (map == null) {
+            //     map = createMap();
+            //     console.log("inicializa el mapa");
+            //     // if (map == null){
+            //     //     console.log("el mapa sige en null!!!");
+            //     // }
+            // }
+            // return map;
+            return createMap();
         };
 
         // Constructor de mapa

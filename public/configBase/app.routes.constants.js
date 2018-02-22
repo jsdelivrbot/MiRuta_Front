@@ -2,12 +2,12 @@
     'use strict';
     angular.module('routes')
         .constant('path', {
-            LOGIN_VIEW: '/public/partial/login_register/loginView.html',
-            REGISTER_VIEW: '/public/partial/login_register/registerView.html',
-            HOME_VIEW: '/public/partial/home/homeView.html',
-            RECORRIDO_VIEW: '/public/partial/recorrido/recorridoView.html',
-            TRANSPORTES_VIEW: '/public/partial/transportes/transportesView.html',
-            PTOINTERES_VIEW: '/public/partial/ptoInteres/ptoInteresView.html',
+            LOGIN_VIEW: '/public/appUser/login_register/loginView.html',
+            REGISTER_VIEW: '/public/appUser/login_register/registerView.html',
+            HOME_VIEW: '/public/appUser/home/homeView.html',
+            RECORRIDO_VIEW: '/public/appUser/recorrido/recorridoView.html',
+            TRANSPORTES_VIEW: '/public/appUser/transportes/transportesView.html',
+            PTOINTERES_VIEW: '/public/appUser/ptoInteres/ptoInteresView.html',
             ADMIN_LOGIN_VIEW: '/public/admin/partial/adminLoginView.html',
             ADMIN_HOME_VIEW: '/public/admin/partial/adminHomeView.html',
             ADMIN_RECORRIDO_VIEW: '/public/admin/partial/adminRecorridoView.html',

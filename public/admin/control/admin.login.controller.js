@@ -2,7 +2,6 @@
 (function () {
     'use strict';
     // Se llama al modulo "adminModule"(), seria una especie de get
-    // angular.module('adminModule')
     angular.module('adminModule', ['servicesRestModule'])
         .controller('adminInitController', [
             '$scope',

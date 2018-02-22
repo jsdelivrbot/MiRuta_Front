@@ -4,13 +4,13 @@
     'use strict';
     // Se llama al modulo "mapModule"(), seria una especie de get
     angular.module('mapModule')
-        .controller('mapInitController', [
+        .controller('ptoInteresController', [
             '$scope',
             'creatorMap',
-            MapInitController
+            PtoInteresController
         ]);
 
-    function MapInitController(vm, creatorMap) {
+    function PtoInteresController(vm, creatorMap) {
 
         // ********************************** VARIABLES PUBLICAS ************************
         // generamos un mapa de entrada
@@ -19,21 +19,21 @@
         // ********************************** FLAGS PUBLICAS ****************************
 
         // ************************DECLARACION DE FUNCIONES PUBLICAS ********************
-        
+
 
         // ********************************** VARIABLES PRIVADAS ************************
-        
+
 
         // *************************** DECLARACION FUNCIONES PRIVADAS ********************
 
         // ****************************** FUNCIONES PUBLICAS ****************************
-        
+
 
         // ****************************** FUNCIONES PRIVADAS ****************************
-        
-    
+
+
         // ************************ EVENTOS ****************************************
-        
+
         // ************************ Inicializacion de datos *****************************
         // al crear el controlador ejecutamos esta funcion
 

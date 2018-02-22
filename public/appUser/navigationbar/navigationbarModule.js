@@ -6,15 +6,11 @@
     angular.module('navigationbar', [])
         // nombre de la directiva, con el q se hace referencia en el html
         .component('navuser', {
-            templateUrl: '/MiRuta_2017/public/partial/navigationbar/navigationbarView.html',
+            templateUrl: '/MiRuta_2017/public/appUser/navigationbar/navigationbarView.html',
             controller: 'NavController'
         })
-        // .component('navigation', {
-        //     templateUrl: '/MiRuta_2017/public/partial/navigationbar/navigationbarView.html',
-        //     controller: 'NavController'
-        // })
         // nombre de la directiva, con el q se hace referencia en el html
         .component('navadmin', {
-            templateUrl: '/MiRuta_2017/public/partial/navigationbar/navAdminView.html'
+            templateUrl: '/MiRuta_2017/public/appUser/navigationbar/navAdminView.html'
         })
 })()
