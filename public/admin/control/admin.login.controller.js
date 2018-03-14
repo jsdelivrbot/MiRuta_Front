@@ -43,7 +43,7 @@
                 .then(function (data) {
                     // vm.totalItems = vm.pruebaJson.length;
                     console.log("Datos recuperados con EXITO! = TOKEN AUTH");
-                    store.set('jwt',data.token);
+                    store.set('jwt',data);
                     location.path('/adminHome');
                 })
                 .catch(function (err) {

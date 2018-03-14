@@ -1,9 +1,115 @@
 <navadmin></navadmin>
 <div class="row" ng-controller="adminRecorridoController">
-<!-- <div class="container-fluid"> -->
-    <div class="card col-sm-6 col-md-3">
+<!-- <div class="container-fluid" ng-controller="adminRecorridoController"> -->
+    <div class="card col-sm-6 col-md-3" style="text-align: center">
         <div class="card-header">
-            Administracion de recorridos
+            <h6>Administracion de recorridos</h6>
+        </div>
+        <!-- <div class="card-header">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Adminitracion de recorridos</li>
+                </ol>
+            </nav>
+        </div> -->
+        
+
+        <!-- <div class="card-body">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Edicion de recorridos
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Seleccione un recorrido</label>
+                                <select multiple class="form-control" id="exampleFormControlSelect1">
+                                    <option>punto 1</option>
+                                    <option>punto 2</option>
+                                    <option>punto 3</option>
+                                    <option>punto 4</option>
+                                    <option>punto 5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="card-body">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCreate" aria-expanded="true" aria-controls="collapseOne">
+                                Creacion de recorridos
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseCreate" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Seleccione una unidad de transporte</label>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <select class="custom-select" id="repeatSelect" ng-model="data.model">
+                                                <!-- <option ng-repeat="unidad in data.availableOptions" value="{{unidad.id}}">{{unidad.name}}</option> -->
+                                                <option ng-repeat="unidad in nombreUnidades">{{unidad}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Marque un punto en el mapa</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Descripcion del punto">
+                                    <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <label for="exampleTipoPunto">Seleccione el tipo de punto</label>
+                                    <select class="custom-select" id="repeatSelect" ng-model="data.model">
+                                        <option ng-repeat="tipo in tipoPunto">{{tipo}}</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="text-center btn-group-sm">
+                                    <button type="button" class="btn btn-success" ng-click="">Agregar punto</button>
+                                    <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
+                                    <!-- <button class="btn btn-success" ng-hide="" uib-tooltip="Guardar punto" ng-disabled="!isSelecting" ng-click="">
+                                                                <span class="glyphicon glyphicon-ok" aria-hidden=""></span>
+                                                            </button>
+                                                            <button class="btn btn-info" ng-disabled="" uib-tooltip="Cancelar" ng-click="">
+                                                                <span class="glyphicon glyphicon-remove" aria-hidden=""></span>
+                                                            </button> -->
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Puntos del recorrido</label>
+                                    <select multiple class="form-control" id="exampleFormControlSelect1">
+                                        <option>punto 1</option>
+                                        <option>punto 2</option>
+                                        <option>punto 3</option>
+                                        <option>punto 4</option>
+                                        <option>punto 5</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="text-center btn-group-sm">
+                                    <button type="button" class="btn btn-success" ng-click="">Guardar recorrido</button>
+                                    <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

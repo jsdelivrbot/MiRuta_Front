@@ -1,9 +1,170 @@
 <navadmin></navadmin>
 <div class="row" ng-controller="adminTransportesController">
-    <div class="card col-sm-6 col-md-3">
+    <div class="card col-sm-6 col-md-3" style="text-align: center">
         <div class="card-header">
-            Administracion de transportes
+            <h6>Administracion de unidades</h6>
         </div>
+
+        <!-- ################################# CREACION #################################
+            ########################################################################### -->
+        <div class="card-body">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseCreate" aria-expanded="true" aria-controls="collapseOne">
+                                Creacion de unidades
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseCreate" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionCreacion">
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Datos de la unidad</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                        ng-model="dataUnidadCreate.nombre" placeholder="Nombre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Frecuencia(min)</label>
+                                    <input type="number" value={{dataUnidadCreate.frecuencia}} min="5" max="59" step="5" data-number-to-fixed="2" data-number-stepfactor="0"
+                                        class="form-control currency" id="c2" ng-model="dataUnidadCreate.frecuencia"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Precio del boleto</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" value={{intPrecio}} min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="0" class="form-control currency"
+                                            id="c2" ng-model="intPrecio">
+                                        <span class="input-group-text">.</span>
+                                        <input type="number" value={{decPrecio}} min="0" step="25" data-number-to-fixed="2" data-number-stepfactor="0" class="form-control currency"
+                                            id="c2" ng-model="decPrecio"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Horario de recorrido</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Inicio</span>
+                                        <input type="number" value={{dataUnidadCreate.horaInicio}} min="0" max="23" step="1" data-number-to-fixed="2" data-number-stepfactor="0"
+                                            class="form-control currency" id="c2" ng-model="dataUnidadCreate.horaInicio"/>
+                                        <span class="input-group-text">:</span>
+                                        <input type="number" value={{dataUnidadCreate.minInicio}} min="0" max="50" step="10" data-number-to-fixed="2" data-number-stepfactor="0"
+                                            class="form-control currency" id="c2" ng-model="dataUnidadCreate.minInicio"/>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Fin</span>
+                                        <input type="number" value={{dataUnidadCreate.horaFin}} min="0" max="23" step="1" data-number-to-fixed="2" data-number-stepfactor="0"
+                                            class="form-control currency" id="c2" ng-model="dataUnidadCreate.horaFin"/>
+                                        <span class="input-group-text">:</span>
+                                        <input type="number" value={{dataUnidadCreate.minFin}} min="0" max="50" step="10" data-number-to-fixed="2" data-number-stepfactor="0"
+                                            class="form-control currency" id="c2" ng-model="dataUnidadCreate.minFin"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Seleccione una empresa</label>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionCreacion">
+                                        <div class="card-body">
+                                            <select class="custom-select" id="repeatSelect0" ng-model="nombreEmpresaSeleccionada">
+                                                <option ng-repeat="empresa in empresas">{{empresa.nombre}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center btn-group-sm">
+                                    <button type="button" class="btn btn-success" ng-click="crearUnidad()">Crear unidad</button>
+                                    <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ################################# EDICION #################################
+        ########################################################################### -->
+        <div class="card-body">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseEdit" aria-expanded="true" aria-controls="collapseOne">
+                                Edicion de unidades
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseEdit" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionEdition">
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Seleccione una unidad de transporte</label>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionEdition">
+                                        <div class="card-body">
+                                            <select class="custom-select" id="repeatSelect" ng-model="nombreUnidadSeleccionada">
+                                                <option ng-repeat="unidad in unidades">{{unidad.nombre}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label for="exampleInputEmail1">Datos de la unidad</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                            ng-disabled="!isSelectedUnidad()" ng-model="nombreUnidadSeleccionada" placeholder="Nombre">
+                                </div>
+                                <div class="form-group" ng-hide="!isSelectedUnidad()">
+                                    <label for="exampleInputEmail1">Frecuencia(min)</label>
+                                    <input type="number" value={{unidadSeleccionada.frecuencia}} min="5" max="59" step="5" data-number-to-fixed="2" data-number-stepfactor="0" class="form-control currency"
+                                            id="c2"/>
+                                </div>
+                                <div class="form-group" ng-hide="!isSelectedUnidad()">
+                                    <label for="exampleInputEmail1">Precio del boleto</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" value={{intPrecio}} min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="0" class="form-control currency"
+                                            id="c2" />
+                                        <span class="input-group-text">.</span>
+                                        <input type="number" value={{decPrecio}} min="0" step="25" data-number-to-fixed="2" data-number-stepfactor="0" class="form-control currency"
+                                            id="c2" />
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-hide="!isSelectedUnidad()">
+                                    <label for="exampleInputEmail1">Horario de recorrido</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Inicio</span>
+                                        <input type="number" value={{unidadSeleccionada.horaInicio.hour}} min="0" max="23" step="1" data-number-to-fixed="2" data-number-stepfactor="0" class="form-control currency"
+                                            id="c2" />
+                                        <span class="input-group-text">:</span>
+                                        <input type="number" value={{unidadSeleccionada.horaInicio.minute}} min="0" max="50" step="10" data-number-to-fixed="2" data-number-stepfactor="0" class="form-control currency"
+                                            id="c2" />
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Fin</span>
+                                        <input type="number" value={{unidadSeleccionada.horaFin.hour}} min="0" max="23" step="1" data-number-to-fixed="2" data-number-stepfactor="0" class="form-control currency"
+                                            id="c2" />
+                                        <span class="input-group-text">:</span>
+                                        <input type="number" value={{unidadSeleccionada.horaFin.minute}} min="0" max="50" step="10" data-number-to-fixed="2" data-number-stepfactor="0" class="form-control currency"
+                                            id="c2" />
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-hide="!isSelectedUnidad()">
+                                    <label for="exampleInputEmail1">Seleccione una empresa</label>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionEdition">
+                                        <div class="card-body">
+                                            <select class="custom-select" id="repeatSelect" ng-model="unidadSeleccionada.empresa.nombre">
+                                                <option ng-repeat="empresa in empresas">{{empresa.nombre}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center btn-group-sm">
+                                    <button type="button" class="btn btn-success" ng-click="actualizarUnidad()">Guardar cambios</button>
+                                    <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--########################################################################### -->
     </div>
 
     <div class="card col-sm-6 col-md-9">
