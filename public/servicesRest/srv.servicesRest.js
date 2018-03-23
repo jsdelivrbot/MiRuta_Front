@@ -12,6 +12,9 @@
             // UNIDADES TRANSPORTES
             getNombreUnidades: getNombreUnidades,
             getUnidades: getUnidades,
+            saveUnidad: saveUnidad,
+            updateUnidad: updateUnidad,
+            deleteUnidad: deleteUnidad,
             // RECORRIDOS
             getRecorridos: getRecorridos,
             // EMPRESAS
@@ -88,6 +91,62 @@
             $http({
                 method: 'GET',
                 url: path.ALL_UNIDADES
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+
+        function saveUnidad(nuevaUnidad){
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                url: path.SAVE_UNIDAD,
+                data: nuevaUnidad
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+         
+        function updateUnidad(unidad){
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                url: path.UPDATE_UNIDAD,
+                data: unidad
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+
+        function deleteUnidad(idUnidad){
+            var defered = $q.defer();
+            var promise = defered.promise;
+            
+            $http({
+                method: 'POST',
+                url: path.DELETE_UNIDAD + "?id=" + idUnidad
             }).then(function successCallback(res) {
                 defered.resolve(res.data);
             },
