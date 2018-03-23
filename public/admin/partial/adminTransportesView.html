@@ -25,9 +25,16 @@
                                     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                                         ng-model="dataUnidadCreate.nombre" placeholder="Nombre" required>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <input type="number"  min="5" max="59" step="5" data-number-to-fixed="2" data-number-stepfactor="0"
                                         class="form-control currency" id="c2" ng-model="dataUnidadCreate.frecuencia" placeholder="Frecuencia(min)" required/>
+                                </div> -->
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+                                        <input type="number" min="5" max="59" step="5" data-number-to-fixed="2" data-number-stepfactor="0"
+                                            class="form-control currency" id="c2" ng-model="dataUnidadCreate.frecuencia" placeholder="Frecuencia(min)" required/>
+                                        <span class="input-group-text">min</span>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Precio del boleto</label>
@@ -78,7 +85,7 @@
                                 </div>
                                 <div class="text-center btn-group-sm">
                                     <button type="submit" class="btn btn-success" ng-click="crearUnidad()">Crear</button>
-                                    <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
+                                    <!-- <button type="button" class="btn btn-danger" ng-click="">Cancelar</button> -->
                                     <button type="button" class="btn btn-info" ng-click="limpiarDatos()">Limpiar</button>
                                 </div>
                             </form>
@@ -121,9 +128,17 @@
                                 </div>
                                 <div class="form-group" ng-hide="!unidadSel">
                                     <label for="exampleInputEmail1">Frecuencia</label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" value={{unidadSeleccionada.frecuencia}} min="5" max="59" step="5" data-number-to-fixed="2" data-number-stepfactor="0"
+                                            class="form-control currency" id="c2" ng-model="unidadSeleccionada.frecuencia"/>
+                                        <span class="input-group-text">min</span>
+                                    </div>
+                                </div>
+                                <!-- <div class="input-group mb-3">
                                     <input type="number" value={{unidadSeleccionada.frecuencia}} min="5" max="59" step="5" data-number-to-fixed="2" data-number-stepfactor="0"
                                         class="form-control currency" id="c2" ng-model="unidadSeleccionada.frecuencia" />
-                                </div>
+                                    <span class="input-group-text">min</span>
+                                </div> -->
                                 <div class="form-group" ng-hide="!unidadSel">
                                     <label for="exampleInputEmail1">Precio del boleto</label>
                                     <div class="input-group mb-3">
@@ -156,9 +171,8 @@
                                 </div>
                                 <div class="form-group" ng-hide="!unidadSel">
                                     <label for="exampleInputEmail1">Empresa responsable</label>
-                                    <!-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" ng-model="nombreEmpresaActual"
-                                        required /> -->
-                                    <label for="exampleInputEmail1">{{nombreEmpresaActual}}</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" ng-model="nombreEmpresaActual"
+                                         readonly />
                                 </div>
                                 <div class="form-group" ng-hide="!unidadSel">
                                     <label for="exampleInputEmail1">Asignar nueva empresa</label>

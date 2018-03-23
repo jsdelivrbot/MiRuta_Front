@@ -96,7 +96,6 @@
             if (recuperarDatosUnidadUpdate()){
                 console.log("Se recuperaron los datos correctamente!!!!!!!...");
                 console.log(vm.dataUnidadUpdate);
-                // vm.actualizando = true;
                 updateUnidad();
             }
             else{
@@ -121,6 +120,7 @@
             vm.intPrecioCreate = "";
             vm.decPrecioCreate = "";
             vm.nombreEmpresaSeleccionada = "";
+            vm.empresaSeleccionadaCreate = "";
         }
 
         // cada vez q cambiamos de opcion vamos a recuperar los datos 
@@ -141,9 +141,6 @@
                 vm.intPrecioUpdate = "";
                 vm.decPrecioUpdate = "";
             }
-            // console.log("Unidad seleccionada: ");
-            // console.log(vm.unidadSeleccionada);
-            // console.log(vm.empresaSeleccionadaUpdate);
             vm.unidadSel = true;
         }
 
@@ -233,7 +230,6 @@
                     cargaUnidades();
                     // vaciamos el campo de empresa
                     vm.empresaSeleccionadaUpdate = "";
-                    // resetear tmb el precio de boleto
                 })
                 .catch(function (err) {
                     console.log("ERRRROOORR!!!!!!!!!! ---> Al eliminar la UNIDAD");
@@ -284,7 +280,6 @@
                 vm.dataUnidadUpdate.minInicio = vm.unidadSeleccionada.horaInicio.minute;
                 vm.dataUnidadUpdate.horaFin = vm.unidadSeleccionada.horaFin.hour;
                 vm.dataUnidadUpdate.minFin = vm.unidadSeleccionada.horaFin.minute;
-                // vm.dataUnidadUpdate.idEmpresa = vm.empresaSeleccionadaUpdate.id;
                 if(vm.empresaNuevaSeleccionadaUpdate != null){
                     vm.dataUnidadUpdate.idEmpresa = vm.empresaNuevaSeleccionadaUpdate.id;
                 }
