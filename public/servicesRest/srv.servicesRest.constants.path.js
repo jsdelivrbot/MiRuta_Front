@@ -10,6 +10,7 @@
             ALL_EMPRESAS: 'http://localhost:8080/miruta/company',
             SAVE_UNIDAD: 'http://localhost:8080/miruta/unitransportes/create',
             UPDATE_UNIDAD: 'http://localhost:8080/miruta/unitransportes/update',
-            DELETE_UNIDAD: 'http://localhost:8080/miruta/unitransportes/delete'
+            DELETE_UNIDAD: 'http://localhost:8080/miruta/unitransportes/delete',
+            SAVE_USUARIO: 'http://localhost:8080/miruta/users/create'
         });
 })()

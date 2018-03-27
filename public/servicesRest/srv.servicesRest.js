@@ -18,7 +18,9 @@
             // RECORRIDOS
             getRecorridos: getRecorridos,
             // EMPRESAS
-            getEmpresas: getEmpresas
+            getEmpresas: getEmpresas,
+            // USUARIOS
+            saveUsuario: saveUsuario
         };
         return service;
 
@@ -188,6 +190,28 @@
             $http({
                 method: 'GET',
                 url: path.ALL_EMPRESAS
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+
+        // ****************************** USUARIOS *****************************
+        // *********************************************************************
+        
+        function saveUsuario(usuario) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                url: path.SAVE_USUARIO,
+                data: usuario
             }).then(function successCallback(res) {
                 defered.resolve(res.data);
             },

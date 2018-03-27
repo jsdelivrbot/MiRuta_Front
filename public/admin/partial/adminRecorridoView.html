@@ -59,10 +59,10 @@
                                     <label for="exampleInputEmail1">Seleccione una unidad de transporte</label>
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                         <div class="card-body">
-                                            <select class="custom-select" id="repeatSelect" ng-model="data.model">
-                                                <!-- <option ng-repeat="unidad in data.availableOptions" value="{{unidad.id}}">{{unidad.name}}</option> -->
-                                                <option ng-repeat="unidad in nombreUnidades">{{unidad}}</option>
+                                            <select class="custom-select" id="repeatSelect" ng-model="nombreUnidadSeleccionada">
+                                                <option ng-repeat="unidad in nombreUnidades | orderBy">{{unidad}}</option>
                                             </select>
+                                            <!-- <select class="custom-select" ng-change="" ng-model="nombreUnidadSeleccionada" ng-options="empresa.nombre for nombreUnidad in nombreUnidades | orderBy:'nombre' "></select> -->
                                         </div>
                                     </div>
                                 </div>

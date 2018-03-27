@@ -27,15 +27,7 @@
             "PARADA"
         ];
 
-        vm.data = {
-            model: null,
-            availableOptions: [
-                { id: '', name: 'Seleccione una unidad' },
-                { id: '1', name: 'Unidad A' },
-                { id: '2', name: 'Unidad B' },
-                { id: '3', name: 'Unidad C' }
-            ]
-        };
+        vm.nombreUnidadSeleccionada = "";
 
         // ********************************** FLAGS PUBLICAS ****************************
 
