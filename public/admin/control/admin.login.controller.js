@@ -5,7 +5,6 @@
     angular.module('adminModule', ['servicesRestModule'])
         .controller('adminInitController', [
             '$scope',
-            // '$state',
             '$location',
             'dataServer',
             'store',

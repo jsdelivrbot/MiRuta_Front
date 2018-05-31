@@ -15,7 +15,8 @@
         'mapModule',
         'adminModule',
         'servicesRestModule',
-        'angular-storage'
+        'angular-storage',
+        'drawingModule'
     ]).run(['$rootScope',
         function ($rootScope) {
             $rootScope.title = "MiRuta";

@@ -20,7 +20,7 @@
             // EMPRESAS
             getEmpresas: getEmpresas,
             // USUARIOS
-            saveUsuario: saveUsuario
+            saveUsuario: saveUsuario,
         };
         return service;
 

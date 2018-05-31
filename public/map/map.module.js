@@ -2,5 +2,6 @@
 // Responsabilidad : Creacion del modulo de mapa
 (function () {
     'use strict';
+    // angular.module('mapModule', ['drawModule']);
     angular.module('mapModule', []);
 })()
