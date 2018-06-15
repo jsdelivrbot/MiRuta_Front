@@ -74,20 +74,21 @@
                                     <input type="email" class="form-control" id="email" value="Parada de recorrido n° {{cantParadas}}" readonly></input>
                                 </div>
                                 <div class="well" ng-hide="!nombreUnidadSeleccionada">
-                                    <input type="email" class="form-control" id="email" value="{{callePunto}}" readonly></input>
+                                    <input type="email" class="form-control" id="email" value="{{direccionParada}}" readonly></input>
                                 </div>
                                 <br>
                                 <div class="text-center btn-group-sm" ng-hide="!nombreUnidadSeleccionada">
-                                    <button type="button" class="btn btn-success" ng-click="">Agregar parada</button>
-                                    <button type="button" class="btn btn-danger" ng-click="">Borrar ultimo</button>
+                                    <button type="button" class="btn btn-info" ng-click="borrarUltimo()">Borrar ultimo</button>
+                                    <button type="button" class="btn btn-danger" ng-click="resetDatosRecorrido()">Borrar todo</button>
                                 </div>
                                 <br>
                                 <div class="form-group" ng-hide="!nombreUnidadSeleccionada">
-                                    <label for="exampleFormControlSelect1">Puntos del recorrido: {{ptosRecorrido}}</label>
+                                    <label for="cantPtosRecorrido">Puntos del recorrido: {{cantParadas}}</label>
+                                    <label for="unidad">Unidad: {{nombreUnidadSeleccionada}}</label>
                                 </div>
                                 <br>
                                 <div class="text-center btn-group-sm">
-                                    <button type="button" class="btn btn-success" ng-click="">Guardar recorrido</button>
+                                    <button type="button" class="btn btn-success" ng-click="guardarRecorrido()">Guardar recorrido</button>
                                     <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
                                 </div>
                             </form>

@@ -25,16 +25,18 @@
 
         vm.nombreUnidades = [];
 
-        vm.recorridos = [];
-
         vm.indice = 0;
 
-        vm.cantParadas = "";
-        vm.callePunto = "";
+        vm.direccionParada = "";
 
         vm.nombreUnidadSeleccionada = "";
         vm.unidadTrsnspSelec = [];
         vm.transporteSeleccionado = false;
+
+        // marcadores y rutas de la capa dibujados
+        vm.cantFeaturesActual = 0;
+        // solo la cantidad de paradas
+        vm.cantParadas = 0;
 
         // #############################################################################
         // #############################################################################
@@ -45,6 +47,10 @@
 
         // array con las coordenadas del recorrido
         var COORD_RECORRIDO = [];
+        // array con las direcciones de las paradas
+        var direcciones = [];
+        var MIN_TAMANIO_RECORRIDO = 2;
+
         // array donde se almacenan los marcadores
         var vectorSource = new ol.source.Vector();
         var vectorLayer = new ol.layer.Vector({
@@ -91,7 +97,13 @@
                     var coord = data;
                     console.log("Datos recuperados con EXITO! = PUNTO CERCANO");
                     var marcadorPtoCercano = drawing.getMarkerPoint(coord);
+                    marcadorPtoCercano.setId(vm.cantFeaturesActual + 1);
                     vectorSource.addFeature(marcadorPtoCercano);
+
+                    // actualizamos la cantidad de elementos dibujados en la capa
+                    vm.cantFeaturesActual = vectorSource.getFeatures().length;
+                    // console.log(" Cant de features de la capa MARCADOR: " + vm.cantFeaturesActual);
+                    // console.log(vectorSource.getFeatureById(vm.cantFeaturesActual));
                 })
                 .catch(function (err) {
                     console.log("ERRRROOORR!!!!!!!!!! ---> Al recuperar coord PUNTO CERCANO");
@@ -102,9 +114,11 @@
             drawing.getAddressPoint(coordMapa)
                  .then(function (data) {
                      // una vez obtenida la respuesta del servidor realizamos las sigientes acciones
-                     vm.callePunto = data[0];
+                     vm.direccionParada = data[0];
+                     // guardamos la direccion en el array con su id
+                     direcciones[vm.cantParadas] = data[0];
                      console.log("Datos recuperados con EXITO! = DIRECCION");
-                     console.log(vm.callePunto);
+                     console.log(vm.direccionParada);
                  })
                  .catch(function (err) {
                      console.log("ERRRROOORR!!!!!!!!!! ---> Al recuperar DIRECCION");
@@ -119,14 +133,28 @@
                     // una vez obtenida la respuesta del servidor realizamos las sigientes acciones
                     var coordGeomRuta = data.coordinates;
                     console.log("Datos recuperados con EXITO! = RUTA_PTOS");
+                    
+                    // creamos el componente a mostrar en la capa y le asignamos un identificador
                     var ruta = drawing.getFeatureRoute(coordGeomRuta);
+                    ruta.setId(vm.cantFeaturesActual + 1);
                     vectorSource.addFeature(ruta);
-                    // console.log("Datos recup del server - distancia: "+data);
+                    
+                    // actualizamos la cantidad de elementos dibujados en la capa
+                    vm.cantFeaturesActual = vectorSource.getFeatures().length;
+                    // console.log(" Cant de features de la capa RUTA: " + vm.cantFeaturesActual);
+                    // console.log(vectorSource.getFeatureById(vm.cantFeaturesActual));
                 })
                 .catch(function (err) {
                     console.log("ERRRROOORR!!!!!!!!!! ---> Al recuperar RUTA_PTOS");
                     console.log(err);
                 })
+        }
+
+        // soporte para vm.borrarUltimo()
+        function borrarFeature(){
+            var ultimoFeature = vectorSource.getFeatureById(vm.cantFeaturesActual);
+            vectorSource.removeFeature(ultimoFeature);
+            vm.cantFeaturesActual--;
         }
 
         // #############################################################################
@@ -136,28 +164,73 @@
 
         vm.map.on('click', function (evt) {
             console.log(evt.coordinate);
-            // // agregamos el marcador al mapa
-            COORD_RECORRIDO.push(evt.coordinate);
-            vm.cantParadas = COORD_RECORRIDO.length;
-            var cantPuntos = COORD_RECORRIDO.length;
-
-            console.log("Cantidad de puntos: "+cantPuntos);
-            if (cantPuntos > 1){
-                var puntos = {
-                    coordIni: COORD_RECORRIDO[cantPuntos - 2],
-                    coordFin: evt.coordinate
-                };
-                dibujarRutaPtos(puntos);  
+            if(vm.nombreUnidadSeleccionada == ""){
+                alert("Debe seleccionar una UNIDAD DE TRANSPORTE antes de crear un recorrido");
             }
+            else{
+                // agregamos el marcador al mapa
+                COORD_RECORRIDO.push(evt.coordinate);
+                vm.cantParadas = COORD_RECORRIDO.length;
 
-            // buscamos el punto mas cercano que sea calle
-            didujarPuntoCercano(evt.coordinate);
+                // console.log("Cantidad de puntos: " + cantPuntos);
+                if (vm.cantParadas > 1) {
+                    var puntos = {
+                        coordIni: COORD_RECORRIDO[vm.cantParadas - 2],
+                        coordFin: evt.coordinate
+                    };
+                    dibujarRutaPtos(puntos);
+                }
+                
+                // buscamos el punto mas cercano que sea calle
+                didujarPuntoCercano(evt.coordinate);
 
-            // mostrar la direccion
-            recuperarDireccion(evt.coordinate);
+                // mostrar la direccion
+                recuperarDireccion(evt.coordinate);
 
-            vm.$apply();
+                // vm.$apply();
+            }
         });
+
+        vm.guardarRecorrido = function(){
+            if (vm.cantParadas < MIN_TAMANIO_RECORRIDO) {
+                alert(" Un recorrido debe contener al menos " + MIN_TAMANIO_RECORRIDO + " paradas.")
+            }
+        }
+
+        vm.borrarUltimo = function(){
+            if(vm.cantFeaturesActual == 0){
+                alert("No hay elementos para borrar");
+                return;
+            }
+            console.log(" ANTES --> Cant de features de la capa: " + vm.cantFeaturesActual);
+            // con esto se saca el ultimo punto del array auxiliar q se usa para los puntos
+            COORD_RECORRIDO.pop();
+            vm.cantParadas--;
+            // volvemos a la direccion del ultimo punto
+            vm.direccionParada = direcciones[vm.cantParadas];
+            // si solo hay un marcador en la capa, lo borramos
+            if(vm.cantFeaturesActual == 1){
+                borrarFeature();
+                return;
+            }
+            // sino, si hay mas de un marcador entonces tambien hay una ruta entre estos
+            // por lo que se deben borrar el ultimo marcador y la ruta
+            borrarFeature();
+            borrarFeature();
+
+            // Tambien se debe borrar la direccion y mantenerla actualizada
+            // con la ultima que quedo --> Sol: agregar un array con las calles
+            // de cada punto y su indice que seria el id (array[n°id] --> calle)
+
+            console.log(" DESPUES --> Cant de features de la capa: " + vm.cantFeaturesActual);
+        }
+
+        vm.resetDatosRecorrido = function(){
+            COORD_RECORRIDO = [];
+            vm.cantParadas = "";
+            vm.direccionParada = "";
+            vectorSource.clear();
+        }
 
         vm.unidadTranspChanged = function(){
             if (!vm.transporteSeleccionado){
