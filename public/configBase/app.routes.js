@@ -44,8 +44,16 @@
                     templateUrl: base_route + path.ADMIN_HOME_VIEW
                 })
                 .when('/adminRecorrido', {
+                    // templateUrl: base_route + path.ADMIN_RECORRIDO_VIEW
+                    templateUrl: base_route + path.ADMIN_RECORRIDO_VIEW_V1
+                })
+                // ************************************************************
+                // *** para comparar con LA VISTA ANTERIOR (DESPUES BORRAR) ***
+                .when('/adminRecorridoOriginal', {
+                    // templateUrl: base_route + path.ADMIN_RECORRIDO_VIEW
                     templateUrl: base_route + path.ADMIN_RECORRIDO_VIEW
                 })
+                // ************************************************************
                 .when('/adminTransporte', {
                     templateUrl: base_route + path.ADMIN_TRANSPORTE_VIEW
                 })

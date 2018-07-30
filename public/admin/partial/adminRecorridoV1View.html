@@ -1,0 +1,235 @@
+<navadmin></navadmin>
+<div class="row" ng-controller="adminRecorridoController">
+    <div class="card col-sm-6 col-md-3" style="text-align: center">
+        <!-- <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Creacion de Recorridos
+                        </button>
+                    </h5>
+                </div>
+        
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Seleccione una unidad de transporte</label>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingCreate" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <select class="custom-select" id="repeatSelect" ng-model="nombreUnidadSeleccionada">
+                                            <option ng-repeat="unidad in nombreUnidades | orderBy">{{unidad}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <hr>
+                            <div class="form-group" ng-hide="!nombreUnidadSeleccionada">
+                                <label for="exampleInputEmail1">Marque un punto en el mapa</label>
+                            </div>
+                            <div class="form-group" ng-hide="!nombreUnidadSeleccionada">
+                                <input type="email" class="form-control" id="email" value="Parada de recorrido n° {{cantParadas}}" readonly></input>
+                            </div>
+                            <div class="well" ng-hide="!nombreUnidadSeleccionada">
+                                <input type="email" class="form-control" id="email" value="{{direccionParada}}" readonly></input>
+                            </div>
+                            <br>
+                            <div class="text-center btn-group-sm" ng-hide="!nombreUnidadSeleccionada">
+                                <button type="button" class="btn btn-info" ng-click="borrarUltimo()">Borrar ultimo</button>
+                                <button type="button" class="btn btn-danger" ng-click="resetDatosRecorrido()">Borrar todo</button>
+                            </div>
+                            <br>
+                            <div class="form-group" ng-hide="!nombreUnidadSeleccionada">
+                                <label for="cantPtosRecorrido">Puntos del recorrido: {{cantParadas}}</label>
+                                <label for="unidad">Unidad: {{nombreUnidadSeleccionada}}</label>
+                            </div>
+                            <br>
+                            <div class="text-center btn-group-sm">
+                                <button type="button" class="btn btn-success" ng-click="guardarRecorrido()">Guardar recorrido</button>
+                                <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Eliminacion de Recorridos
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, 
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                             Modificacion de Recorridos
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, e
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- <div id="accordion">
+        
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link" data-toggle="collapse" href="#">
+                        Collapsible Group Item #1
+                    </a>
+                </div>
+                <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                    <div class="card-body">
+                        Lorem ipsum..
+                    </div>
+                </div>
+            </div>
+        
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                        Collapsible Group Item #2
+                    </a>
+                </div>
+                <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        Lorem ipsum..
+                    </div>
+                </div>
+            </div>
+        
+            <div class="card">
+                <div class="card-header">
+                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                        Collapsible Group Item #3
+                    </a>
+                </div>
+                <div id="collapseThree" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        Lorem ipsum..
+                    </div>
+                </div>
+            </div>
+        
+        </div> -->
+
+            <!-- <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                aria-controls="collapseOne">
+                Creacion de recorridos
+            </button>
+        <div class="collapse" id="collapseOne">
+            <div class="card card-body">
+                Contenido boton1.
+            </div>
+        </div> -->
+
+        <!-- <br> -->
+
+        <!-- <p> -->
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                aria-controls="collapseTwo">
+                 Eliminacion de recorridos
+            </button>
+        <!-- </p> -->
+        <div class="collapse" id="collapseTwo">
+            <div class="card card-body">
+                 <!-- Contenido boton2. -->
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Seleccione una unidad de transporte</label>
+                            <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <select class="custom-select" id="repeatSelect" ng-model="nombreUnidadSeleccionadaElim">
+                                        <option ng-repeat="nombreUnidad in nombreUnidades | orderBy">{{nombreUnidad}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group" ng-hide="unidadConRecorrido">
+                            <label for="exampleInputEmail1">La unidad no cuenta con un recorrrido</label>
+                        </div>
+                        <br>
+                        <div class="text-center btn-group-sm">
+                            <button type="button" class="btn btn-success" ng-click="eliminarRecorrido()">Eliminar recorrido</button>
+                            <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- <br> -->
+        <div class="card">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Otra de de recorridos
+            </button>
+            
+            <div class="collapse" id="collapseThree">
+                <div class="card card-body">
+                    <!-- Contenido boton3. -->
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Seleccione una unidad de transporte</label>
+                            <div id="collapseThree" class="collapse show" aria-labelledby="headingCreate" data-parent="#accordion">
+                                <div class="card-body">
+                                    <select class="custom-select" id="repeatSelect" ng-model="nombreUnidadSeleccionada">
+                                        <option ng-repeat="unidad in nombreUnidades | orderBy">{{unidad}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <hr>
+                        <div class="form-group" ng-hide="!nombreUnidadSeleccionada">
+                            <label for="exampleInputEmail1">Marque un punto en el mapa</label>
+                        </div>
+                        <div class="form-group" ng-hide="!nombreUnidadSeleccionada">
+                            <input type="email" class="form-control" id="email" value="Parada de recorrido n° {{cantParadas}}" readonly></input>
+                        </div>
+                        <div class="well" ng-hide="!nombreUnidadSeleccionada">
+                            <input type="email" class="form-control" id="email" value="{{direccionParada}}" readonly></input>
+                        </div>
+                        <br>
+                        <div class="text-center btn-group-sm" ng-hide="!nombreUnidadSeleccionada">
+                            <button type="button" class="btn btn-info" ng-click="borrarUltimo()">Borrar ultimo</button>
+                            <button type="button" class="btn btn-danger" ng-click="resetDatosRecorrido()">Borrar todo</button>
+                        </div>
+                        <br>
+                        <div class="form-group" ng-hide="!nombreUnidadSeleccionada">
+                            <label for="cantPtosRecorrido">Puntos del recorrido: {{cantParadas}}</label>
+                            <label for="unidad">Unidad: {{nombreUnidadSeleccionada}}</label>
+                        </div>
+                        <br>
+                        <div class="text-center btn-group-sm">
+                            <button type="button" class="btn btn-success" ng-click="guardarRecorrido()">Guardar recorrido</button>
+                            <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- Columnas de la parte del mapa -->
+    <div class="card col-sm-6 col-md-9">
+        <div id="map" class="map" style="position: relative;"></div>
+    </div>
+</div>
+

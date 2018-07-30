@@ -30,7 +30,6 @@
                 image: new ol.style.Icon({
                     anchor: [0.5, 1],
                     src: url.ICON
-                    // src: 'http://cdn.rawgit.com/openlayers/ol3/master/examples/data/icon.png'
                 })
             })
         };

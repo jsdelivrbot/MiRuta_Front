@@ -15,7 +15,6 @@
         ]);
 
     function AdminRecorridoController(vm, creatorMap, dataServer, drawing) {
-    // function AdminRecorridoController(vm, creatorMap, dataServer) {
 
         // #############################################################################
         // ########################## VARIABLES PUBLICAS ###############################
@@ -30,8 +29,8 @@
         vm.direccionParada = "";
 
         vm.nombreUnidadSeleccionada = "";
-        vm.unidadTrsnspSelec = [];
-        vm.transporteSeleccionado = false;
+        // vm.unidadTrsnspSelec = [];
+        // vm.transporteSeleccionado = false;
 
         // marcadores y rutas de la capa dibujados
         vm.cantFeaturesActual = 0;
@@ -45,11 +44,21 @@
         // #############################################################################
         // ######################### VARIABLES PRIVADAS ################################
 
+        // constantes para la creacion de los recorridos
+        const COLOR_RECORRIDO = 'green';
         // array con las coordenadas del recorrido
         var COORD_RECORRIDO = [];
+        // variable con los datos que se enviaran al servidor para crear un nuevo recorrido
+        var puntosRecorridoCreate = [];
+        // datso completos del recorrido nuevo
+        var nuevoRecorrido;
         // array con las direcciones de las paradas
         var direcciones = [];
-        var MIN_TAMANIO_RECORRIDO = 2;
+        const MIN_TAMANIO_RECORRIDO = 2;
+
+        // para controlar el acceso alas funcionalidades de cada seccion
+        var modo_creacion = false;
+        var modo_eliminacion = false;
 
         // array donde se almacenan los marcadores
         var vectorSource = new ol.source.Vector();
@@ -64,6 +73,9 @@
         // #############################################################################
         // ######################### FUNCIONES PRIVADAS ################################
 
+
+        // ####################################################################
+        // ######################### SERVICIOS REST ###########################
         function cargaNombreUnidades() {
             dataServer.getNombreUnidades()
                 .then(function (data) {
@@ -87,6 +99,21 @@
                 })
                 .catch(function (err) {
                     console.log("ERRRROOORR!!!!!!!!!! ---> Al cargar las RECORRIDOS");
+                })
+        }
+
+        function guardarRecorridoServ(){
+            console.log("Datos del nuevo recorrido");
+            console.log(nuevoRecorrido);
+            dataServer.saveRecorrido(nuevoRecorrido)
+                .then(function (data) {
+                    // una vez obtenida la respuesta del servidor realizamos las sigientes acciones
+                    // vm.recorridos = data;
+                    console.log("NUEVO RECORRIDO creado con EXITO!");
+                    console.log(data);
+                })
+                .catch(function (err) {
+                    console.log("ERRRROOORR!!!!!!!!!! ---> Al crear NUEVO RECORRIDO");
                 })
         }
 
@@ -150,6 +177,12 @@
                 })
         }
 
+        // ####################################################################
+        // ####################################################################
+
+        // ####################################################################
+        // ######################### SOPORTE SERVICIOS REST ###########################
+
         // soporte para vm.borrarUltimo()
         function borrarFeature(){
             var ultimoFeature = vectorSource.getFeatureById(vm.cantFeaturesActual);
@@ -157,6 +190,53 @@
             vm.cantFeaturesActual--;
         }
 
+        // preparamos los datos para enviarlos al servidor y guardarlos
+        function recuperarDatosRecorrido(){
+            // recuperamos los datos del recorrido
+            COORD_RECORRIDO.forEach(crearDatoRecorrido);
+            nuevoRecorrido = {
+                "color": COLOR_RECORRIDO,
+                "puntos": puntosRecorridoCreate,
+                "nombreUnidadTransporte": vm.nombreUnidadSeleccionada
+            }
+        }
+
+        // reasignamos los datos de los puntos cargados
+        function crearDatoRecorrido(value, index, ar){
+            var nuevoPuntoRecorrido = {
+                "lat": value[1],
+                "lon": value[0],
+                "descripcion": "algoDesc",
+                "tipoPunto": 1
+            }
+            
+            puntosRecorridoCreate.push(nuevoPuntoRecorrido);
+        }
+
+        // ####################################################################
+        // ####################################################################
+
+        // #############################################################################
+        // ##################### ELIMINACION DE RECORRIDOS #############################
+
+        vm.nombreUnidadSeleccionadaElim = "";
+        vm.unidadConRecorrido = true;
+
+        function cargaRecorridoUnidades() {
+            // dataServer.getNombreUnidades()
+            //     .then(function (data) {
+            //         // una vez obtenida la respuesta del servidor realizamos las sigientes acciones
+            //         vm.nombreUnidades = data;
+            //         console.log("Datos recuperados con EXITO! = UNIDADES");
+            //         console.log(vm.nombreUnidades);
+            //     })
+            //     .catch(function (err) {
+            //         console.log("ERRRROOORR!!!!!!!!!! ---> Al cargar las UNIDADES");
+            //     })
+        }
+        
+
+        // #############################################################################
         // #############################################################################
         
         // #############################################################################
@@ -186,14 +266,17 @@
 
                 // mostrar la direccion
                 recuperarDireccion(evt.coordinate);
-
-                // vm.$apply();
             }
         });
 
         vm.guardarRecorrido = function(){
             if (vm.cantParadas < MIN_TAMANIO_RECORRIDO) {
                 alert(" Un recorrido debe contener al menos " + MIN_TAMANIO_RECORRIDO + " paradas.")
+            }
+            else{
+                recuperarDatosRecorrido();
+                guardarRecorridoServ();
+                alert("El recorrido se guardo correctamente!!");
             }
         }
 
@@ -232,11 +315,30 @@
             vectorSource.clear();
         }
 
-        vm.unidadTranspChanged = function(){
-            if (!vm.transporteSeleccionado){
-                vm.transporteSeleccionado = true;
-            }
-        }
+        // ****************************************************************
+        // ********** administracion de la apertura de los paneles ********
+
+        $('#collapseCreate').on('shown.bs.collapse', function () {
+            console.log("Se abrio el panel de creacion");
+        });
+        $('#collapseCreate').on('hide.bs.collapse', function () {
+            console.log("Se oculto el panel de creacion");
+        });
+
+        $('#collapseRemove').on('shown.bs.collapse', function () {
+            console.log("Se abrio el panel de eliminacion");
+        });
+        $('#collapseRemove').on('hide.bs.collapse', function () {
+            console.log("Se oculto el panel de eliminacion");
+        });
+
+        // ****************************************************************
+
+        // vm.unidadTranspChanged = function(){
+        //     if (!vm.transporteSeleccionado){
+        //         vm.transporteSeleccionado = true;
+        //     }
+        // }
 
         // #############################################################################
         // #############################################################################
@@ -245,6 +347,7 @@
         // al crear el controlador ejecutamos esta funcion
         cargaNombreUnidades();
         cargaRecorridos();
+        // recuperarDatosRecorrido();
         // agregamos una capa de dibujo al mapa
         vm.map.addLayer(vectorLayer);
 

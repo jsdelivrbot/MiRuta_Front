@@ -17,6 +17,7 @@
             deleteUnidad: deleteUnidad,
             // RECORRIDOS
             getRecorridos: getRecorridos,
+            saveRecorrido: saveRecorrido,
             // EMPRESAS
             getEmpresas: getEmpresas,
             // USUARIOS
@@ -169,6 +170,25 @@
             $http({
                 method: 'GET',
                 url: path.ALL_RECORRIDOS
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+
+        function saveRecorrido(recorrido) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                url: path.SAVE_RECORRIDO,
+                data: recorrido
             }).then(function successCallback(res) {
                 defered.resolve(res.data);
             },

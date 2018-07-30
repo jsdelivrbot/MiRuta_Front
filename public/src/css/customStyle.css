@@ -1,4 +1,5 @@
-<style>.angular-openlayers-map {
+<style>
+.angular-openlayers-map {
     /* width: 1240px;
     height: 680px; */
 }
@@ -29,6 +30,9 @@
     height: auto;
 }
 
+.ol-viewport {
+    width: 80%;
+}
 
 /* Remove the navbar's default margin-bottom and rounded borders */
 
@@ -43,13 +47,13 @@
 }
 
 .bg-custom {
-    background-color: #6c757d!important;
+    background-color: #6c757d !important;
 }
 
 .container-fluid-map {
     margin-bottom: 0;
     border-radius: 0;
-    /*width: 100%;*/
+    width: 100%;
     /*margin: 0 auto;*/
     /*margin-top:50px;*/
 }
@@ -71,7 +75,6 @@
     margin-bottom: 5px;
     border-radius: 0;
 }
-
 
 /*
  * Style tweaks
@@ -113,7 +116,6 @@ pfooter {
 p {
     text-align: center;
 }
-
 
 /*
  * Off Canvas
