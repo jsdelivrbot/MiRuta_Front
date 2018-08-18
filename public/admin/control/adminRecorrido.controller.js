@@ -213,6 +213,23 @@
             puntosRecorridoCreate.push(nuevoPuntoRecorrido);
         }
 
+        function crearLineString(coordenadas){
+            return new ol.geom.LineString(coordenadas);
+        }
+
+        function verLineString(){
+            var coordRecorrido = [
+                                    [-42.75792890613414,-65.0456220045391],
+                                    [-42.75792890613414, -65.0456220045391],
+                                    [-42.75792890613414, -65.0456220045391],
+                                    [-42.75792890613414, -65.0456220045391],
+                                    [-42.75792890613414, -65.0456220045391]
+            ];
+            var recorridoLS = new ol.geom.LineString(coordRecorrido);
+
+            console.log(recorridoLS);
+        }
+
         // ####################################################################
         // ####################################################################
 
@@ -350,6 +367,10 @@
         // recuperarDatosRecorrido();
         // agregamos una capa de dibujo al mapa
         vm.map.addLayer(vectorLayer);
+
+        // **************************************************************
+        // ******************* pa probar funcionalidad ******************
+        verLineString();
 
     } // fin Constructor
 

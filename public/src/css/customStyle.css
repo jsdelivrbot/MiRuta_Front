@@ -1,5 +1,4 @@
-<style>
-.angular-openlayers-map {
+<style>.angular-openlayers-map {
     /* width: 1240px;
     height: 680px; */
 }
@@ -75,6 +74,22 @@
     margin-bottom: 5px;
     border-radius: 0;
 }
+
+/* ***************************************************** */
+
+/* ******************** admin recorrido **************** */
+
+#botonIda {
+    background-color: #29984c;
+}
+
+#botonVuelta {
+    background-color: #17a2b8;
+}
+
+/* ***************************************************** */
+
+/* ***************************************************** */
 
 /*
  * Style tweaks

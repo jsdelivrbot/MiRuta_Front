@@ -17,7 +17,8 @@
             deleteUnidad: deleteUnidad,
             // RECORRIDOS
             getRecorridos: getRecorridos,
-            saveRecorrido: saveRecorrido,
+            // saveRecorrido: saveRecorrido,
+            setRecorrido: setRecorrido,
             // EMPRESAS
             getEmpresas: getEmpresas,
             // USUARIOS
@@ -181,13 +182,32 @@
             return promise;
         }
 
-        function saveRecorrido(recorrido) {
+        // function saveRecorrido(recorrido) {
+        //     var defered = $q.defer();
+        //     var promise = defered.promise;
+
+        //     $http({
+        //         method: 'POST',
+        //         url: path.SAVE_RECORRIDO,
+        //         data: recorrido
+        //     }).then(function successCallback(res) {
+        //         defered.resolve(res.data);
+        //     },
+        //         function errorCallback(err) {
+        //             defered.reject(err)
+        //         }
+        //     );
+
+        //     return promise;
+        // }
+
+        function setRecorrido(recorrido) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http({
                 method: 'POST',
-                url: path.SAVE_RECORRIDO,
+                url: path.SET_RECORRIDO,
                 data: recorrido
             }).then(function successCallback(res) {
                 defered.resolve(res.data);
