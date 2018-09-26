@@ -23,61 +23,18 @@
         vm.unidades = [];
         vm.empresas = [];
 
-        vm.empresaSeleccionada;
-
-        //#######################################################
-
-        // #################### VAR CREACION ####################
-
-        vm.nombreEmpresaSeleccionada = "";
-        vm.dataUnidadCreate = {
-            "nombre": "",
-            "horaInicio": "",
-            "minInicio": "",
-            "horaFin": "",
-            "minFin": "",
-            "frecuencia": "",
-            "precioBoleto": "",
-            "idEmpresa": ""
-        };
-        vm.intPrecioCreate = "";
-        vm.decPrecioCreate = "";
-        vm.empresaSeleccionadaCreate = "";
-
-        //#######################################################
-
-        // ##################### VAR EDICION ####################
-
-        vm.unidadSeleccionada;
-        vm.nombreUnidadSel = "";
-        vm.nombreUnidadSeleccionada = null;
-        vm.dataUnidadUpdate = {
-            "id": "",
-            "nombre": "",
-            "horaInicio": "",
-            "minInicio": "",
-            "horaFin": "",
-            "minFin": "",
-            "frecuencia": "",
-            "precioBoleto": "",
-            "idEmpresa": ""
-        };
-        vm.intPrecioUpdate = "";
-        vm.decPrecioUpdate = "";
-        vm.empresaNuevaSeleccionadaUpdate;
-        vm.nombreEmpresaActual = "";
+        // vm.empresaSeleccionada;
 
         //#######################################################
 
         //###################### FLAGS ##########################
 
-        vm.horarioOk = true;
-        vm.datosCorrectos = true;
-        vm.guardadoExitoso = false;
-        vm.unidadSel = false;
-        vm.actualizacionCorrecta = false;
-        var empresaSelected = false;
-        var nuevaEmpresaUpdate = false;
+        // vm.horarioOk = true;
+        // vm.datosVacios = true;
+        
+        
+        // var empresaSelected = false;
+        // var nuevaEmpresaUpdate = false;
 
         //#######################################################
 
@@ -85,80 +42,28 @@
 
         // ****************************** FUNCIONES PUBLICAS ****************************
 
-        vm.crearUnidad = function(){
-            if(recuperarDatosUnidadCreate()){
-                // guardamos en la DB
-                saveUnidad();
-            }
-        }
+        // $("#btnSubmit").click(function(event) {
 
-        vm.actualizarUnidad = function(){
-            if (recuperarDatosUnidadUpdate()){
-                console.log("Se recuperaron los datos correctamente!!!!!!!...");
-                console.log(vm.dataUnidadUpdate);
-                updateUnidad();
-            }
-            else{
-                console.log("Error al recuperar los datos!!!!!!!...");
-            }
-            
-        }
-
-        vm.eliminarunidad = function(){
-            deleteUnidad();
-        }
-
-        vm.limpiarDatos = function(){
-            vm.dataUnidadCreate.nombre = "";
-            vm.dataUnidadCreate.horaInicio = "";
-            vm.dataUnidadCreate.minInicio = "";
-            vm.dataUnidadCreate.horaFin = "";
-            vm.dataUnidadCreate.minFin = "";
-            vm.dataUnidadCreate.frecuencia = "";
-            vm.dataUnidadCreate.precioBoleto = "";
-            vm.dataUnidadCreate.idEmpresa = "";
-            vm.intPrecioCreate = "";
-            vm.decPrecioCreate = "";
-            vm.nombreEmpresaSeleccionada = "";
-            vm.empresaSeleccionadaCreate = "";
-        }
-
-        // cada vez q cambiamos de opcion vamos a recuperar los datos 
-        // de la misma para mostrarlos en la vista
-        vm.changeUnidad = function () {
-            if (vm.unidadSeleccionada != null){
-                // le asignamos la empresa a una variable que se refleja en la lista de empresas
-                // vm.empresaNuevaSeleccionadaUpdate = vm.unidadSeleccionada.empresa;
-                vm.nombreEmpresaActual = vm.unidadSeleccionada.empresa.nombre;
-                // para poder editarla sin problemas
-                vm.nombreUnidadSelUpdate = "" + vm.unidadSeleccionada.nombre;
-                // se pasa el nombre de la unidad seleccionada a una variable temporal
-                separarPrecioBoleto();
-            }
-            else{
-                vm.nombreEmpresaActual = "";
-                vm.nombreUnidadSelUpdate = "";
-                vm.intPrecioUpdate = "";
-                vm.decPrecioUpdate = "";
-            }
-            vm.unidadSel = true;
-        }
-
-        vm.changeEmpresa = function(){
-            vm.nombreEmpresaActual = vm.empresaNuevaSeleccionadaUpdate.nombre;
-        }
+        //     // Fetch form to apply custom Bootstrap validation
+        //     var form = $("#myForm")
         
-        vm.selectedEmpresaCreate = function(){
-            empresaSelected = true;
-            console.log(vm.empresaSeleccionadaCreate);
-        }
+        //     if (form[0].checkValidity() === false) {
+        //       event.preventDefault()
+        //       event.stopPropagation()
+        //     }
+            
+        //     form.addClass('was-validated');
+        //     // Perform ajax submit here...
+            
+        // });
 
-        vm.resetFlags = function(){
-            vm.horarioOk = true;
-            vm.datosCorrectos = true;
-            vm.guardadoExitoso = false;
-            vm.actualizacionCorrecta = false;
-        }
+
+        // vm.resetFlags = function(){
+        //     vm.horarioOk = true;
+        //     vm.datosCorrectos = true;
+        //     vm.guardadoExitoso = false;
+        //     vm.actualizacionCorrecta = false;
+        // }
 
         // ****************************** FUNCIONES PRIVADAS ****************************
 
@@ -197,6 +102,7 @@
                     // una vez obtenida la respuesta del servidor realizamos las sigientes acciones
                     console.log("Datos guardados con EXITO! = UNIDAD CREADA");
                     console.log(data);
+                    vm.guardadoExitoso = true;
                     cargaUnidades();
                 })
                 .catch(function (err) {
@@ -212,8 +118,9 @@
                     console.log(data);
                     // recuperamos los datos actualizados del servidor
                     cargaUnidades();
-                    vm.nombreUnidadSeleccionada = data.nombre;
                     vm.actualizacionCorrecta = true;
+                    // actualizamos los datos mostrados con los nuevos
+                    actualizarDatos();
                 })
                 .catch(function (err) {
                     vm.actualizacionCorrecta = false;
@@ -228,10 +135,12 @@
                     // una vez obtenida la respuesta del servidor realizamos las sigientes acciones
                     console.log("Datos eliminados con EXITO! = UNIDAD ELIMINADA");
                     cargaUnidades();
-                    // vaciamos el campo de empresa
-                    vm.empresaSeleccionadaUpdate = "";
+                    vm.unidadEliminadaExito = true;
+                    console.log("Unidad sel exito: "+vm.unidadEliminadaExito);
+                    alert("La unidad se elimino exitosamente");
                 })
                 .catch(function (err) {
+                    vm.unidadEliminadaExito = false;
                     console.log("ERRRROOORR!!!!!!!!!! ---> Al eliminar la UNIDAD");
                 })
         }
@@ -240,66 +149,82 @@
         // ###########################################################################
         // ###########################################################################
 
-
         // ###########################################################################
-        // ####################### Captura de datos ##################################
+        // ########################## CREACION ########################################
 
-        // recupera todos los datos ingresados en la vista y los asigna a
-        // un objeto con el formato correcto para ser procesado en el servidor
-        function recuperarDatosUnidadCreate() {
-            if (horarioCorrecto(vm.dataUnidadCreate.horaInicio,
-                vm.dataUnidadCreate.minInicio, vm.dataUnidadCreate.horaFin,
-                vm.dataUnidadCreate.minFin) && empresaSelected)
-            {
-                vm.dataUnidadCreate.idEmpresa = vm.empresaSeleccionadaCreate.id;
-                vm.dataUnidadCreate.precioBoleto = getPrecioBoleto(vm.intPrecioCreate, vm.decPrecioCreate);
-                console.log("Se recuperaron los datos de la nueva unidad.");
-                console.log(vm.dataUnidadCreate);
-                vm.horarioOk = true;
-                vm.datosCorrectos = true;
-                vm.guardadoExitoso = true;
-                return true;
-            }
-            else {
-                vm.horarioOk = false;
-                vm.datosCorrectos = false;
-                return false;
+        vm.nombreEmpresaSeleccionada = "";
+        vm.empresaSeleccionadaCreate;
+        vm.dataUnidadCreate = {
+            "nombre": "",
+            "horaInicio": "",
+            "minInicio": "",
+            "horaFin": "",
+            "minFin": "",
+            "frecuencia": "",
+            "precioBoleto": "",
+            "idEmpresa": ""
+        };
+
+        vm.intPrecioCreate = "";
+        vm.decPrecioCreate = "";
+        // bandera para mostrar mje de elegir empresa en la vista
+        vm.empresaSel = false;
+        // bander para informar que hay problemas en los datos
+        vm.datosOkCreate = true;
+        vm.guardadoExitoso = false;
+
+        //********************** Funciones *********************
+
+        vm.resetDatosCreate = function(){
+            vm.dataUnidadCreate.nombre = "";
+            vm.dataUnidadCreate.horaInicio = "";
+            vm.dataUnidadCreate.minInicio = "";
+            vm.dataUnidadCreate.horaFin = "";
+            vm.dataUnidadCreate.minFin = "";
+            vm.dataUnidadCreate.frecuencia = "";
+            vm.dataUnidadCreate.precioBoleto = "";
+            vm.dataUnidadCreate.idEmpresa = "";
+            vm.intPrecioCreate = "";
+            vm.decPrecioCreate = "";
+            vm.nombreEmpresaSeleccionada = "";
+            vm.empresaSeleccionadaCreate = "";
+            // reseteamos las banderas
+            vm.empresaSel = false;
+            vm.datosOkCreate = true;
+            vm.guardadoExitoso = false;
+        }
+        
+        vm.crearUnidadNew = function(){
+            recuperarDatosUnidadCreate();
+            if(vm.datosOkCreate){
+                saveUnidad();
             }
         }
 
         // recupera todos los datos ingresados en la vista y los asigna a
         // un objeto con el formato correcto para ser procesado en el servidor
-        function recuperarDatosUnidadUpdate() {
-            if (horarioCorrecto(vm.unidadSeleccionada.horaInicio.hour,
-                vm.unidadSeleccionada.horaInicio.minute,
-                vm.unidadSeleccionada.horaFin.hour,
-                vm.unidadSeleccionada.horaFin.minute)) {
-                // asiganamos los datos al objeto a ser actualizado
-                vm.dataUnidadUpdate.id = vm.unidadSeleccionada.id;
-                vm.dataUnidadUpdate.horaInicio = vm.unidadSeleccionada.horaInicio.hour;
-                vm.dataUnidadUpdate.minInicio = vm.unidadSeleccionada.horaInicio.minute;
-                vm.dataUnidadUpdate.horaFin = vm.unidadSeleccionada.horaFin.hour;
-                vm.dataUnidadUpdate.minFin = vm.unidadSeleccionada.horaFin.minute;
-                if(vm.empresaNuevaSeleccionadaUpdate != null){
-                    vm.dataUnidadUpdate.idEmpresa = vm.empresaNuevaSeleccionadaUpdate.id;
+        function recuperarDatosUnidadCreate() {
+                if(!vm.empresaSel){
+                    console.log("Falta seleccionar empresa");
+                    // vm.datosOkCreate = false;
+                    return;
                 }
-                else{
-                    vm.dataUnidadUpdate.idEmpresa = vm.unidadSeleccionada.empresa.id;
+                if(vm.datosVaciosCreate()){
+                    // vm.datosOkCreate = false;
+                    console.log("Faltan completar los datos");
+                    return;
                 }
-                vm.dataUnidadUpdate.precioBoleto = getPrecioBoleto(vm.intPrecioUpdate, vm.decPrecioUpdate);
-                vm.dataUnidadUpdate.nombre = vm.nombreUnidadSelUpdate;
-                vm.dataUnidadUpdate.frecuencia = vm.unidadSeleccionada.frecuencia;
-
-                vm.horarioOk = true;
-                vm.datosCorrectos = true;
-                vm.guardadoExitoso = true;
-                return true;
-            }
-            else {
-                vm.datosCorrectos = false;
-                vm.horarioOk = false;
-                return false;
-            }
+                if(!horarioCorrecto(vm.dataUnidadCreate.horaInicio, vm.dataUnidadCreate.minInicio,
+                    vm.dataUnidadCreate.horaFin, vm.dataUnidadCreate.minFin)){
+                    console.log("controlar los horarios");
+                    vm.datosOkCreate = false;
+                    return;
+                }
+                vm.datosOkCreate = true;
+                vm.dataUnidadCreate.idEmpresa = vm.empresaSeleccionadaCreate.id;
+                vm.dataUnidadCreate.precioBoleto = getPrecioBoleto(vm.intPrecioCreate, vm.decPrecioCreate);
+                console.log("Se recuperaron los datos de la nueva unidad.");
+                console.log(vm.dataUnidadCreate);
         }
 
         // paso los datos ingresados en la vista y los unifica en el formato
@@ -309,6 +234,271 @@
             var precioBoletoFloat = parseFloat(precioBoletoString);
             console.log("Precio de boleto FLOAT: " + precioBoletoFloat);
             return precioBoletoFloat;
+        }
+
+        vm.selecEmpresaCreate = function(){
+            if(!vm.empresaSel){
+                vm.empresaSel = true;
+            }
+            console.log("Empresa seleccionada: ");
+            console.log(vm.empresaSeleccionadaCreate);
+        }
+
+        vm.datosVaciosCreate = function(){
+            // se deshabilita el boton luego de crear una unidad
+            // para forzar a usar el boton de "Crear nueva unidad"
+            if(vm.guardadoExitoso){
+                return true;
+            }
+            if(!vm.empresaSel){
+                return true;
+            }
+            if((vm.dataUnidadCreate.nombre == "")||vm.dataUnidadCreate.frecuencia == ""){
+                return true;
+            }
+            if((vm.intPrecioCreate == "")||(vm.decPrecioCreate == "")){
+                return true;
+            }
+            if((vm.dataUnidadCreate.horaInicio == "")||(vm.dataUnidadCreate.minInicio == "")){
+                return true;
+            }
+            if((vm.dataUnidadCreate.horaFin == "")||(vm.dataUnidadCreate.minFin == "")){
+                return true;
+            }
+            return false;
+        }
+
+
+        // ################################# FIN CREACION #############################
+        // ###########################################################################
+
+        // ###########################################################################
+        // ########################## EDICION ########################################
+
+        vm.unidadSeleccionada = null;
+        vm.nombreUnidadSel = "";
+        // vm.nombreUnidadSeleccionada = null;
+        vm.dataUnidadUpdate = {
+            "id": "",
+            "nombre": "",
+            "horaInicio": "",
+            "minInicio": "",
+            "horaFin": "",
+            "minFin": "",
+            "frecuencia": "",
+            "precioBoleto": "",
+            "idEmpresa": ""
+        };
+        vm.intPrecioUpdate = "";
+        vm.decPrecioUpdate = "";
+        // vm.empresaNuevaSeleccionadaUpdate;
+        vm.empresaNuevaSeleccionada = null;
+        vm.nombreEmpresaActual = "";
+
+        // ****************** flags ****************
+        vm.unidadSel = false;
+        vm.actualizacionCorrecta = false;
+        vm.datosCorrectos = true;
+        vm.unidadEliminadaExito = false;
+
+        //********************** Funciones *********************
+
+        vm.actualizarUnidad = function(){
+            // if (recuperarDatosUnidadUpdate()){
+            //     console.log("Se recuperaron los datos correctamente!!!!!!!...");
+            //     console.log(vm.dataUnidadUpdate);
+            //     updateUnidad();
+            // }
+            // else{
+            //     console.log("Error al recuperar los datos!!!!!!!...");
+            // }
+            if (!datosCompletosUpdate()){
+                console.log("Hay campos vacios!!!!!!!...");
+                vm.datosCorrectos = false;
+                return;
+            }
+            if (!horarioCorrecto(vm.dataUnidadUpdate.horaInicio, vm.dataUnidadUpdate.minInicio,
+                vm.dataUnidadUpdate.horaFin, vm.dataUnidadUpdate.minFin)){
+
+                    vm.datosCorrectos = false;
+                    console.log("Controlar los horarios!!!!!!!...");
+                    return;
+            }
+            recuperarDatosUpdate();
+            updateUnidad();
+        }
+
+        // al elegir otra unidad se deben reflejar los datos correspondientes
+        // en la vista como asi tmb al eliminarla
+        vm.changeUnidadSel = function () {
+            actualizarSeleccion()
+            actualizarDatos();
+            vm.actualizacionCorrecta = false;
+            // controlar q se haya borrado una unidad
+            vm.unidadEliminadaExito = false;
+            // if(vm.unidadEliminadaExito){
+            //     vm.unidadEliminadaExito = false;
+            // }
+        }
+
+        function actualizarSeleccion(){
+            if(!vm.unidadSel){
+                vm.unidadSel = true;
+            }
+            if(vm.unidadSeleccionada == null){
+                 vm.unidadSel = false;
+            }
+        }
+
+        // se encarga de mostrar los datos en la vista c/vez q se selecciona
+        // una nueva unidad
+        function actualizarDatos(){
+            if(vm.unidadSeleccionada == null){
+                resetDatosSel();
+                return;
+            }
+            vm.dataUnidadUpdate.nombre = "" + vm.unidadSeleccionada.nombre;
+            vm.dataUnidadUpdate.frecuencia = Number("" + vm.unidadSeleccionada.frecuencia);
+            // ** esto se debe hacer solo al recuperar los datos para actualizarlos en el serv
+            // vm.dataUnidadUpdate.idEmpresa = vm.empresaNuevaSeleccionada.id;
+            separarPrecioBoletoSel();
+            mostrarHora();
+        }
+
+        function resetDatosSel(){
+            vm.dataUnidadUpdate.nombre = "";
+            vm.dataUnidadUpdate.frecuencia = "";
+            // ** esto se debe hacer solo al recuperar los datos para actualizarlos en el serv
+            vm.dataUnidadUpdate.precioBoleto = null;
+            vm.dataUnidadUpdate.horaInicio = null;
+            vm.dataUnidadUpdate.minInicio = null;
+            vm.dataUnidadUpdate.horaFin = null;
+            vm.dataUnidadUpdate.minFin = null;
+
+            vm.intPrecioUpdate = "";
+            vm.decPrecioUpdate = "";
+        }
+
+        // ver si hace falta capturar el cambio de empresa
+        // vm.changeEmpresaSel = function(){
+        //     // vm.nombreEmpresaActual = vm.empresaNuevaSeleccionadaUpdate.nombre;
+        //     // vm.dataUnidadUpdate.nombre = vm.empresaNuevaSeleccionadaUpdate.nombre;
+        //     // console.log("Se cambio la empresa a: "+vm.dataUnidadUpdate.nombre);
+        //     // console.log(vm.dataUnidadUpdate.nombre);
+        //     // ** esto se debe hacer solo al recuperar los datos para actualizarlos en el serv
+        //     // vm.dataUnidadUpdate.idEmpresa = vm.empresaNuevaSeleccionada.id;
+        //     console.log("Se cambio la empresa a: "+vm.empresaNuevaSeleccionada.nombre+ "id: "+vm.dataUnidadUpdate.idEmpresa);
+        // }
+
+        // separa el precio de la unidad seleccionada en 2 enteros
+        // para poder mostrarlos en la vista
+        function separarPrecioBoletoSel() {
+            console.log("Entro a separarBoleto()");
+            vm.intPrecioUpdate = Math.trunc(vm.unidadSeleccionada.precioBoleto);
+            vm.decPrecioUpdate = Number(((vm.unidadSeleccionada.precioBoleto - vm.intPrecioUpdate).toFixed(2)) * 100);
+        }
+
+        function mostrarHora(){
+            var componentesHora = separarStringHora(vm.unidadSeleccionada.horaInicio);
+            vm.dataUnidadUpdate.horaInicio = Number(componentesHora[0]);
+            vm.dataUnidadUpdate.minInicio = Number(componentesHora[1]);
+            componentesHora = separarStringHora(vm.unidadSeleccionada.horaFin);
+            vm.dataUnidadUpdate.horaFin = Number(componentesHora[0]);
+            vm.dataUnidadUpdate.minFin = Number(componentesHora[1]);
+        }
+
+        // separa un string de hora en sus componentes menores
+        function separarStringHora(hora){
+            var componentesHora = hora.split(":");
+            return componentesHora;
+        }
+
+        vm.cancelarActualizacion = function(){
+            actualizarDatos();
+        }
+
+        vm.eliminarUnidad = function(){
+            resetDatosSel();
+            deleteUnidad();
+            // vm.unidadEliminadaExito = true;
+        }
+        
+
+        // ################################# FIN EDICION #############################
+        // ###########################################################################
+
+        // ###########################################################################
+        // ####################### Captura de datos ##################################
+
+        // recupera todos los datos ingresados en la vista y los asigna a
+        // un objeto con el formato correcto para ser procesado en el servidor
+        // function recuperarDatosUnidadUpdate() {
+        //     if (horarioCorrecto(vm.unidadSeleccionada.horaInicio.hour,
+        //         vm.unidadSeleccionada.horaInicio.minute,
+        //         vm.unidadSeleccionada.horaFin.hour,
+        //         vm.unidadSeleccionada.horaFin.minute)) {
+        //         // asiganamos los datos al objeto a ser actualizado
+        //         vm.dataUnidadUpdate.id = vm.unidadSeleccionada.id;
+        //         vm.dataUnidadUpdate.horaInicio = vm.unidadSeleccionada.horaInicio.hour;
+        //         vm.dataUnidadUpdate.minInicio = vm.unidadSeleccionada.horaInicio.minute;
+        //         vm.dataUnidadUpdate.horaFin = vm.unidadSeleccionada.horaFin.hour;
+        //         vm.dataUnidadUpdate.minFin = vm.unidadSeleccionada.horaFin.minute;
+        //         if(vm.empresaNuevaSeleccionadaUpdate != null){
+        //             vm.dataUnidadUpdate.idEmpresa = vm.empresaNuevaSeleccionadaUpdate.id;
+        //         }
+        //         else{
+        //             vm.dataUnidadUpdate.idEmpresa = vm.unidadSeleccionada.empresa.id;
+        //         }
+        //         vm.dataUnidadUpdate.precioBoleto = getPrecioBoleto(vm.intPrecioUpdate, vm.decPrecioUpdate);
+        //         vm.dataUnidadUpdate.nombre = vm.nombreUnidadSelUpdate;
+        //         vm.dataUnidadUpdate.frecuencia = vm.unidadSeleccionada.frecuencia;
+
+        //         vm.horarioOk = true;
+        //         vm.datosCorrectos = true;
+        //         vm.guardadoExitoso = true;
+        //         return true;
+        //     }
+        //     else {
+        //         vm.datosCorrectos = false;
+        //         vm.horarioOk = false;
+        //         return false;
+        //     }
+        // }
+
+        function datosCompletosUpdate(){
+                if((vm.dataUnidadUpdate.nombre == "")||vm.dataUnidadUpdate.frecuencia == ""){
+                    console.log("La frec o nombre vacios:");
+                    console.log(vm.dataUnidadUpdate.nombre + ' , ' +vm.dataUnidadUpdate.frecuencia);
+                    return false;
+                }
+                if((vm.intPrecioUpdate == "")||(vm.decPrecioUpdate == "")){
+                    console.log("La frec o nombre vacios:");
+                    console.log(vm.intPrecioUpdate + ' , ' +vm.decPrecioUpdate);
+                    return false;
+                }
+                if((vm.dataUnidadUpdate.horaInicio == "")||(vm.dataUnidadUpdate.minInicio == "")){
+                    console.log("La frec o nombre vacios:");
+                    console.log(vm.dataUnidadUpdate.horaInicio + ' , ' +vm.dataUnidadUpdate.minInicio);
+                    return false;
+                }
+                if((vm.dataUnidadUpdate.horaFin == "")||(vm.dataUnidadUpdate.minFin == "")){
+                    console.log("La frec o nombre vacios:");
+                    console.log(vm.dataUnidadUpdate.horaFin + ' , ' +vm.dataUnidadUpdate.minFin);
+                    return false;
+                }
+                return true;
+        }
+
+        function recuperarDatosUpdate(){
+            vm.dataUnidadUpdate.id = vm.unidadSeleccionada.id;
+            vm.dataUnidadUpdate.precioBoleto = getPrecioBoleto(vm.intPrecioUpdate, vm.decPrecioUpdate);
+            // si no se selecciono una nueva empresa se toma la empresa anterior
+            if(vm.empresaNuevaSeleccionada == null){
+                vm.dataUnidadUpdate.idEmpresa = vm.unidadSeleccionada.empresa.id;
+            }
+
+            console.log("Se recuperaron los datos correctamente.");
+            console.log(vm.dataUnidadUpdate);
         }
 
         // ###########################################################################
@@ -340,10 +530,10 @@
 
         // pasa los datos recuperados del servidor a 2 variables para q puedan
         // ser visualizados de manera correcta en la vista a la hora de la edicion
-        function separarPrecioBoleto() {
-            vm.intPrecioUpdate = Math.trunc(vm.unidadSeleccionada.precioBoleto);
-            vm.decPrecioUpdate = Number(((vm.unidadSeleccionada.precioBoleto - vm.intPrecioUpdate).toFixed(2)) * 100);
-        }
+        // function separarPrecioBoleto() {
+        //     vm.intPrecioUpdate = Math.trunc(vm.unidadSeleccionada.precioBoleto);
+        //     vm.decPrecioUpdate = Number(((vm.unidadSeleccionada.precioBoleto - vm.intPrecioUpdate).toFixed(2)) * 100);
+        // }
 
         // ###########################################################################
         // ###########################################################################

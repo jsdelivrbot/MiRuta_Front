@@ -3,7 +3,7 @@
     <div class="card col-sm-6 col-md-3" style="text-align: center">
 
         <div class="card">
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <button class="btn btn-primary" type="button" ng-click="selectCreate()" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 Creación de recorridos
             </button>
         
@@ -36,7 +36,7 @@
                         </div>
                         <hr>
                         <div class="text-center btn-group-sm">
-                            <button type="button" class="btn btn-success" ng-click="guardarRecorrido()">Guardar recorrido</button>
+                            <button type="button" class="btn btn-success" ng-click="guardarRecorrido()" ng-disabled="!recorridoCorrecto()">Guardar recorrido</button>
                             <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
                         </div>
                     </form>
@@ -44,7 +44,7 @@
             </div>
         </div>
             
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+        <button class="btn btn-primary" type="button" ng-click="selectElim()" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
                 aria-controls="collapseTwo">
                  Eliminación de recorridos
         </button>
@@ -68,9 +68,8 @@
                         <div class="form-group" ng-hide="unidadConRecorrido">
                             <label for="exampleInputEmail1">La unidad no cuenta con un recorrrido</label>
                         </div>
-                        <br>
                         <div class="text-center btn-group-sm">
-                            <button type="button" class="btn btn-success" ng-click="eliminarRecorrido()">Eliminar recorrido</button>
+                            <button type="button" class="btn btn-success" ng-click="eliminarRecorrido()" ng-disabled="!lineaSeleccionada">Eliminar recorrido</button>
                             <button type="button" class="btn btn-danger" ng-click="">Cancelar</button>
                         </div>
                     </form>

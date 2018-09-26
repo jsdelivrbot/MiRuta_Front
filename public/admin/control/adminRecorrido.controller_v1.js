@@ -58,6 +58,12 @@
             source: vectorSource
         });
 
+        // capa y componentes de 
+        var vectorSourceElim = new ol.source.Vector();
+        var layerEliminacion = new ol.layer.Vector({
+            source: vectorSourceElim
+        });
+
         // #############################################################################
         // #############################################################################
 
@@ -104,6 +110,8 @@
                     // una vez obtenida la respuesta del servidor realizamos las sigientes acciones
                     console.log("NUEVO RECORRIDO creado con EXITO!");
                     console.log(data);
+                    alert("El recorrido fue creado con exito!");
+                    cargaRecorridos();
                 })
                 .catch(function (err) {
                     console.log("ERRRROOORR!!!!!!!!!! ---> Al crear NUEVO RECORRIDO");
@@ -264,8 +272,10 @@
         
         vm.editIda = false;
         vm.editVuelta = false;
+        
         const ID_INI_IDA = 100;
         const ID_INI_VUELTA = 200;
+        const TAM_RECORRIDO_MIN = 3;
 
         vm.ptosRecorrido = 0;
 
@@ -362,6 +372,19 @@
             return;
         }
 
+        vm.recorridoCorrecto = function(){
+            // vemos si el recorrido cumple con las condiciones
+            
+            var tam_recorrido_ida = coord_ida.length;
+            var tam_recorrido_vuelta = coord_vuelta.length;
+
+            if((tam_recorrido_ida >= TAM_RECORRIDO_MIN) && (tam_recorrido_vuelta >= TAM_RECORRIDO_MIN)){
+                return true;
+            }
+
+            return false;
+        }
+
         // para controlar el boton de borrar ultimo
         vm.hayParada = function(){
             if (vm.ptosRecorrido == 0)
@@ -422,11 +445,24 @@
         vm.datos_recorridos;
         vm.nombreUnidadSeleccionadaElim = "";
         vm.unidadConRecorrido = true;
+        vm.lineaSeleccionada = false;
+        console.log("linea seleccionada_ini: "+vm.lineaSeleccionada);
+        var lineaSelec = false;
+
+        // capa generica del mapa
+        var capaActual;
 
         vm.changeUnidad = function () {
+            console.log("linea seleccionada: "+vm.lineaSeleccionada);
+            if(!vm.lineaSeleccionada){
+                vm.lineaSeleccionada = true;
+            }
+            console.log("linea seleccionada_1: "+vm.lineaSeleccionada);
             // recuperar el recorrido de esa unidad y mostrarlo
             var recorrido = recuperarRecorrido(vm.nombreUnidadSeleccionadaElim);
             if(recorrido == null){
+                console.log(" La unidad seleccionada no cuenta con un recorrido disponible");
+                alert(" La unidad seleccionada no cuenta con un recorrido disponible");
                 return;
             }
             mostrarRecorridoUnidad(recorrido);
@@ -454,12 +490,38 @@
 
         function mostrarRecorridoUnidad(datos_recorrido){
             // console.log(" Datos del recorrido obtenido:");
-            // console.log(datos_recorrido);
+            console.log(datos_recorrido);
             var feature_recorrido_ida = drawing.getFeatureRoute(datos_recorrido[0].coordinates);
             var feature_recorrido_vuelta = drawing.getFeatureRoute(datos_recorrido[1].coordinates);
 
-            vectorSource.addFeature(feature_recorrido_ida);
-            vectorSource.addFeature(feature_recorrido_vuelta);
+            // vectorSource.addFeature(feature_recorrido_ida);
+            // vectorSource.addFeature(feature_recorrido_vuelta);
+            // primeros borramos los features anteriores de la capa
+            // y luego agregamos los nuevos festures
+            vectorSourceElim.clear();
+            vectorSourceElim.addFeature(feature_recorrido_ida);
+            vectorSourceElim.addFeature(feature_recorrido_vuelta);
+            // layerEliminacion.setVisible(true);
+        }
+
+        // vm.lineaSeleccionada = function(){
+        //     return lineaSelec;
+        // }
+
+        vm.eliminarRecorrido = function(){
+            if(vm.lineaSeleccionada){
+                dataServer.deleteRecorrido(vm.nombreUnidadSeleccionadaElim)
+                    .then(function (data){
+                        console.log("Se elimino el recorrido correctamente.");
+                        cargaRecorridos();
+                        vectorSourceElim.clear();
+                    })
+                    .catch(function (err){
+                        console.log(" Hubo un problema al borrar el recorrido!!!!");
+                    })
+            }else{
+                alert(" Debe seleccionar la unidad del recorrido a borrar!");
+            }
         }
 
         function cargaRecorridoUnidades() {
@@ -595,27 +657,24 @@
         // #############################################################################
         // #############################################################################
 
-        // #############################################################################
-        // ########################## Funciones de prueba ##############################
+        // ****************************************************************
+        // ********** administracion de la apertura de los paneles ********
 
-        function crearLineString(coordenadas) {
-            return new ol.geom.LineString(coordenadas);
+        vm.selectCreate = function(){
+            console.log("Se selecciono el panel de CREACION");
+            layerEliminacion.setVisible(false);
+            vectorLayer.setVisible(true);
         }
 
-        // funciona
-        function verLineString() {
-            var coordRecorrido = [
-                [-65.03543615341187, -42.77595520019531],
-                [-65.0389552116394, -42.77724266052246],
-                [-65.04195928573608, -42.77810096740723]
-            ];
-            
-            var recorridoFeature = drawing.getFeatureRoute(coordRecorrido);
-            vectorSource.addFeature(recorridoFeature);
-
-            // console.log("Recorrido verLineString():");
-            // console.log(recorridoFeature);
+        vm.selectElim = function () {
+            console.log("Se selecciono el panel de ELIMINACION");
+            // se cambia de capa de trabajo
+           //  capaActual = layerEliminacion;
+            vectorLayer.setVisible(false);
+            layerEliminacion.setVisible(true);
         }
+
+        // ****************************************************************
 
         // #############################################################################
         // #############################################################################
@@ -625,12 +684,12 @@
         cargaNombreUnidades();
         cargaRecorridos();
         // recuperarDatosRecorrido();
-        // agregamos una capa de dibujo al mapa
+        // agregamos una capa de dibujo al mapa por cada modo de edicion
         vm.map.addLayer(vectorLayer);
+        vm.map.addLayer(layerEliminacion);
 
         // **************************************************************
         // ******************* pa probar funcionalidad ******************
-        // verLineString();
 
     } // fin Constructor
 
