@@ -132,6 +132,19 @@ p {
     text-align: center;
 }
 
+/* ****************************************************************
+/* para poder seleccionar una fila de una lista(punto de inetres) */
+
+table {}
+td, th { 
+    /* border: 1px solid #999; */
+    cursor: pointer;
+}
+.sel { background-color: #F2F1F1; }
+
+/* .selected {
+  background-color: green;
+} */
 /*
  * Off Canvas
  * --------------------------------------------------

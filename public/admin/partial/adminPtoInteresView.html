@@ -1,13 +1,150 @@
 <navadmin></navadmin>
 <div class="row" ng-controller="adminPtoInteresController">
     <!-- <div class="container-fluid"> -->
-    <div class="card col-sm-6 col-md-3">
-        <div class="card-header">
-            Administracion de puntos de interes
+    <div class="card col-sm-4 col-md-4">
+        <div class="card">
+            <button class="btn btn-primary" type="button" ng-click="selectCreate()" data-toggle="collapse" data-target="#menuCreacion" aria-expanded="false" aria-controls="menuCreacion">
+                Crear puntos de interés
+            </button>
+
+            <div class="collapse" id="menuCreacion">
+                <div class="card card-body">
+                    <form>
+                        <!-- <label class="text-center"><b>Seleccione un punto en el mapa</b></label>
+                        <hr> -->
+                        <div class="form-group">
+                            <div id="collapseThree" class="collapse show" aria-labelledby="headingCreate" data-parent="#accordion">
+                                <label>Tipo de punto: </label>
+                                <!-- <select class="custom-select" id="repeatSelect" ng-model="tipoSeleccionado">
+                                    <option ng-repeat="tipo in tiposInteres | orderBy">{{nombre}}</option>
+                                </select> -->
+                                <select class="custom-select" ng-model="tipoSeleccionado"
+                                    ng-options="tipo.nombre for tipo in tiposInteres | orderBy:'nombre' track by tipo.id"></select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-hide="!hayTipoSeleccionadoCreate()">
+                            <div id="collapseThree" class="collapse show" aria-labelledby="headingCreate" data-parent="#accordion">
+                                <label>Nombre: </label>
+                                <input type="text" class="form-control" id="inputNombre" 
+                                    ng-model="nombrePunto" placeholder="pto_de_interes" required>
+                            </div>
+                        </div>
+                        <!-- <div class="alert alert-danger" ng-hide="!datosVaciosCreacion()">
+                            Datos imcompletos!
+                        </div> -->
+                        <div class="text-center btn-group-sm" ng-hide="!hayTipoSeleccionadoCreate()">
+                            <button type="button" class="btn btn-success" ng-click="guardarPunto()" ng-disabled="guardadoExitoso">Guardar punto</button>
+                            <button type="button" class="btn btn-primary" ng-click="resetDatos()" ng-disabled="!guardadoExitoso">Nuevo punto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ##################### EDICION ############################ -->
+        <div class="card">
+            <button class="btn btn-primary" type="button" ng-click="selectEdit()" data-toggle="collapse" data-target="#menuEdit" aria-expanded="false" aria-controls="menuEdit">
+                Editar puntos de interés
+            </button>
+
+            <div class="collapse" id="menuEdit">
+                <div class="card card-body">
+                    <form>
+                        <label class="text-center">Seleccione el tipo de los puntos que desea ver</label>
+                        <br><br>
+                        <div class="input-group">
+                                <select class="custom-select" ng-model="nameTipoSeleccionado"
+                                            ng-options="nametipo.nombre for nametipo in namesTiposInteres | orderBy:'clave' track by nametipo.id"></select>
+                                <div class="input-group-append">
+                                  <button class="btn btn-info" type="button" ng-click="buscarPuntos()">Buscar</button>
+                                </div>
+                        </div>
+                        <div class="form-group" ng-hide="!tipoSeleccionadoUpdate">
+                                <table class="table">
+                                        <tr ng-repeat="punto in ptosInteresByTipo.slice(((pagActual-1)*cantForPage), ((pagActual)*cantForPage))"
+                                        ng-click="setPuntoSelected(punto)" ng-class="{sel:punto.id==idPuntoFilaSeleccionada}">
+                                        <!-- data-toggle="modal" data-target="#exampleModal"> -->
+                                        <td>{{punto.nombre}}</td>
+                                        </tr>
+                                </table>
+                                <!-- Modal -->
+                                <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true" ng-hide="!ptoInteresEditSelec">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edición de punto</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Perderá los cambios realizados.
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-primary" ng-click="actualizarDatosPuntoSeleccionado()">Confirmar</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div> -->
+                                <div class="row text-center">
+                                <!-- <nav aria-label="..."> -->
+                                <nav class="navbar navbar-expand-md" aria-label="...">
+                                        <ul class="pagination">
+                                          <li class="page-item disabled">
+                                            <button type="button" class="btn btn-primary" ng-click="pagAnterior()"><<|</button>
+                                          </li>
+                                          <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                          <li class="page-item active">
+                                            <span class="page-link">
+                                              2
+                                              <span class="sr-only">(current)</span>
+                                            </span>
+                                          </li>
+                                          <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                          <li class="page-item" href="#">
+                                            <a class="page-link"> página {{pagActual}}/{{pagTotal}}</a>
+                                          </li>
+                                          <li class="page-item">
+                                            <button type="button" class="btn btn-primary" ng-click="pagSiguiente()" >|>></button>
+                                          </li>
+                                        </ul>
+                                </nav>
+                                </div>
+                                <hr>
+                                <div class="text-center" ng-hide="!ptoInteresEditSelec">
+                                    <h6> - - - Datos del punto - - - </h6>
+                                    <br>
+                                </div>
+                                <div class="row form-group text-left" ng-hide="!ptoInteresEditSelec">
+                                    <label for="exampleInputEmail1" class="col-sm-5 col-form-label">Nombre actual:</label>
+                                    <input type="text" class="form-control col-sm-7" id="nombrePuntoActual" 
+                                        ng-model="datosPuntoSeleccionado.nombre" readonly>
+                                </div>
+                                <div class="row form-group text-left" ng-hide="!ptoInteresEditSelec">
+                                    <label for="exampleInputEmail1" class="col-sm-5 col-form-label">Nombre nuevo:</label>
+                                    <input type="text" class="form-control col-sm-7" id="nombrePuntoNuevo" 
+                                        ng-model="nuevoNombre" placeholder="nuevo nombre">
+                                </div>
+                                <div class="row form-group text-left" ng-hide="!ptoInteresEditSelec">
+                                    <label for="exampleInputEmail1" class="col-sm-5 col-form-label">Asignar nuevo tipo:</label>
+                                    <select class="custom-select col-sm-7" ng-model="nuevoTipoPunto"
+                                        ng-options="tipo.nombre for tipo in tiposInteres | orderBy:'nombre' track by tipo.id"></select>
+                                </div>
+                                <div class="text-center btn-group-sm" ng-hide="!ptoInteresEditSelec">
+                                    <button type="button" class="btn btn-info" ng-click="reubicarPunto()" ng-disabled="editUbicacionPunto" >Nueva ubicacion</button>
+                                    <button type="submit" class="btn btn-primary" ng-click="guardarCambios()" >Guardar punto</button>
+                                    <button type="button" class="btn btn-danger" ng-click="eliminarPunto()" >Borrar punto</button>
+                                </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="card col-sm-6 col-md-9">
+    <div class="card col-sm-8 col-md-8">
         <div class="container-fluid-map">
             <div id="map" class="map" style="position: fixed;"></div>
         </div>

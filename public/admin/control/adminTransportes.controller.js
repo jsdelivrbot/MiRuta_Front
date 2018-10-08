@@ -8,11 +8,10 @@
             '$scope',
             'creatorMap',
             'dataServer',
-            '$timeout',
             AdminTransportesController
         ]);
 
-    function AdminTransportesController(vm, creatorMap, dataServer, tm) {
+    function AdminTransportesController(vm, creatorMap, dataServer) {
 
         // ********************************** VARIABLES PUBLICAS ************************
         // generamos un mapa de entrada
@@ -22,23 +21,6 @@
 
         vm.unidades = [];
         vm.empresas = [];
-
-        // vm.empresaSeleccionada;
-
-        //#######################################################
-
-        //###################### FLAGS ##########################
-
-        // vm.horarioOk = true;
-        // vm.datosVacios = true;
-        
-        
-        // var empresaSelected = false;
-        // var nuevaEmpresaUpdate = false;
-
-        //#######################################################
-
-     
 
         // ****************************** FUNCIONES PUBLICAS ****************************
 
@@ -56,14 +38,6 @@
         //     // Perform ajax submit here...
             
         // });
-
-
-        // vm.resetFlags = function(){
-        //     vm.horarioOk = true;
-        //     vm.datosCorrectos = true;
-        //     vm.guardadoExitoso = false;
-        //     vm.actualizacionCorrecta = false;
-        // }
 
         // ****************************** FUNCIONES PRIVADAS ****************************
 
@@ -277,7 +251,6 @@
 
         vm.unidadSeleccionada = null;
         vm.nombreUnidadSel = "";
-        // vm.nombreUnidadSeleccionada = null;
         vm.dataUnidadUpdate = {
             "id": "",
             "nombre": "",
@@ -291,7 +264,6 @@
         };
         vm.intPrecioUpdate = "";
         vm.decPrecioUpdate = "";
-        // vm.empresaNuevaSeleccionadaUpdate;
         vm.empresaNuevaSeleccionada = null;
         vm.nombreEmpresaActual = "";
 
@@ -304,14 +276,6 @@
         //********************** Funciones *********************
 
         vm.actualizarUnidad = function(){
-            // if (recuperarDatosUnidadUpdate()){
-            //     console.log("Se recuperaron los datos correctamente!!!!!!!...");
-            //     console.log(vm.dataUnidadUpdate);
-            //     updateUnidad();
-            // }
-            // else{
-            //     console.log("Error al recuperar los datos!!!!!!!...");
-            // }
             if (!datosCompletosUpdate()){
                 console.log("Hay campos vacios!!!!!!!...");
                 vm.datosCorrectos = false;
@@ -359,8 +323,6 @@
             }
             vm.dataUnidadUpdate.nombre = "" + vm.unidadSeleccionada.nombre;
             vm.dataUnidadUpdate.frecuencia = Number("" + vm.unidadSeleccionada.frecuencia);
-            // ** esto se debe hacer solo al recuperar los datos para actualizarlos en el serv
-            // vm.dataUnidadUpdate.idEmpresa = vm.empresaNuevaSeleccionada.id;
             separarPrecioBoletoSel();
             mostrarHora();
         }
@@ -378,17 +340,6 @@
             vm.intPrecioUpdate = "";
             vm.decPrecioUpdate = "";
         }
-
-        // ver si hace falta capturar el cambio de empresa
-        // vm.changeEmpresaSel = function(){
-        //     // vm.nombreEmpresaActual = vm.empresaNuevaSeleccionadaUpdate.nombre;
-        //     // vm.dataUnidadUpdate.nombre = vm.empresaNuevaSeleccionadaUpdate.nombre;
-        //     // console.log("Se cambio la empresa a: "+vm.dataUnidadUpdate.nombre);
-        //     // console.log(vm.dataUnidadUpdate.nombre);
-        //     // ** esto se debe hacer solo al recuperar los datos para actualizarlos en el serv
-        //     // vm.dataUnidadUpdate.idEmpresa = vm.empresaNuevaSeleccionada.id;
-        //     console.log("Se cambio la empresa a: "+vm.empresaNuevaSeleccionada.nombre+ "id: "+vm.dataUnidadUpdate.idEmpresa);
-        // }
 
         // separa el precio de la unidad seleccionada en 2 enteros
         // para poder mostrarlos en la vista
@@ -429,41 +380,6 @@
 
         // ###########################################################################
         // ####################### Captura de datos ##################################
-
-        // recupera todos los datos ingresados en la vista y los asigna a
-        // un objeto con el formato correcto para ser procesado en el servidor
-        // function recuperarDatosUnidadUpdate() {
-        //     if (horarioCorrecto(vm.unidadSeleccionada.horaInicio.hour,
-        //         vm.unidadSeleccionada.horaInicio.minute,
-        //         vm.unidadSeleccionada.horaFin.hour,
-        //         vm.unidadSeleccionada.horaFin.minute)) {
-        //         // asiganamos los datos al objeto a ser actualizado
-        //         vm.dataUnidadUpdate.id = vm.unidadSeleccionada.id;
-        //         vm.dataUnidadUpdate.horaInicio = vm.unidadSeleccionada.horaInicio.hour;
-        //         vm.dataUnidadUpdate.minInicio = vm.unidadSeleccionada.horaInicio.minute;
-        //         vm.dataUnidadUpdate.horaFin = vm.unidadSeleccionada.horaFin.hour;
-        //         vm.dataUnidadUpdate.minFin = vm.unidadSeleccionada.horaFin.minute;
-        //         if(vm.empresaNuevaSeleccionadaUpdate != null){
-        //             vm.dataUnidadUpdate.idEmpresa = vm.empresaNuevaSeleccionadaUpdate.id;
-        //         }
-        //         else{
-        //             vm.dataUnidadUpdate.idEmpresa = vm.unidadSeleccionada.empresa.id;
-        //         }
-        //         vm.dataUnidadUpdate.precioBoleto = getPrecioBoleto(vm.intPrecioUpdate, vm.decPrecioUpdate);
-        //         vm.dataUnidadUpdate.nombre = vm.nombreUnidadSelUpdate;
-        //         vm.dataUnidadUpdate.frecuencia = vm.unidadSeleccionada.frecuencia;
-
-        //         vm.horarioOk = true;
-        //         vm.datosCorrectos = true;
-        //         vm.guardadoExitoso = true;
-        //         return true;
-        //     }
-        //     else {
-        //         vm.datosCorrectos = false;
-        //         vm.horarioOk = false;
-        //         return false;
-        //     }
-        // }
 
         function datosCompletosUpdate(){
                 if((vm.dataUnidadUpdate.nombre == "")||vm.dataUnidadUpdate.frecuencia == ""){
@@ -528,12 +444,7 @@
         // ###########################################################################
         // ############################## SOPORTE ####################################
 
-        // pasa los datos recuperados del servidor a 2 variables para q puedan
-        // ser visualizados de manera correcta en la vista a la hora de la edicion
-        // function separarPrecioBoleto() {
-        //     vm.intPrecioUpdate = Math.trunc(vm.unidadSeleccionada.precioBoleto);
-        //     vm.decPrecioUpdate = Number(((vm.unidadSeleccionada.precioBoleto - vm.intPrecioUpdate).toFixed(2)) * 100);
-        // }
+        
 
         // ###########################################################################
         // ###########################################################################

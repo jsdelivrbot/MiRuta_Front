@@ -22,7 +22,9 @@
             ICON_PARADA_IDA_FIN: '../MiRuta_2017/public/src/img/parada-ida-fin.png',
             ICON_PARADA_VUELTA_NORMAL: '../MiRuta_2017/public/src/img/parada-vuelta.png',
             ICON_PARADA_VUELTA_INICIO: '../MiRuta_2017/public/src/img/parada-vuelta-inicio.png',
-            ICON_PARADA_VUELTA_FIN: '../MiRuta_2017/public/src/img/parada-vuelta-fin.png'
+            ICON_PARADA_VUELTA_FIN: '../MiRuta_2017/public/src/img/parada-vuelta-fin.png',
+            ICON_PUNTO_CARGA_ACTUAL: '../MiRuta_2017/public/src/img/carga-actual.png',
+            ICON_PUNTO_CARGA_NUEVA: '../MiRuta_2017/public/src/img/carga-nueva.png'
         }
 
         var estilos = {
@@ -71,10 +73,27 @@
                     anchor: [0.5, 1],
                     src: url.ICON_PARADA_VUELTA_FIN
                 })
+            }),
+            punto_carga_actual: new ol.style.Style({
+                image: new ol.style.Icon({
+                    anchor: [0.5, 1],
+                    src: url.ICON_PUNTO_CARGA_ACTUAL
+                })
+            }),
+            punto_carga_nueva: new ol.style.Style({
+                image: new ol.style.Icon({
+                    anchor: [0.5, 1],
+                    src: url.ICON_PUNTO_CARGA_NUEVA
+                })
             })
         };
 
         var service = {
+            // ************** pto interes ****************
+            getMarcadorCargaNueva: getMarcadorCargaNueva,
+            getMarcadorCargaActual: getMarcadorCargaActual,
+            getMarcadorPtoInteres: getMarcadorPtoInteres,
+            // paradas
             getMarcadorParadaIda: getMarcadorParadaIda,
             getMarcadorParadaVuelta: getMarcadorParadaVuelta,
             getFeatureRoute: getFeatureRoute,
@@ -108,6 +127,32 @@
 
         // #############################################################################
         // ########################## FUNCIONES PUBLICAS ###############################
+
+        function getMarcadorPtoInteres(coord) {
+            var marcador = new ol.Feature({
+                geometry: new ol.geom.Point([coord[0], coord[1]])
+            });
+
+            return marcador;
+        }
+
+        function getMarcadorCargaActual(coord) {
+            var marcador = new ol.Feature({
+                geometry: new ol.geom.Point([coord[0], coord[1]])
+            });
+            marcador.setStyle(estilos.punto_carga_actual);
+
+            return marcador;
+        }
+
+        function getMarcadorCargaNueva(coord) {
+            var marcador = new ol.Feature({
+                geometry: new ol.geom.Point([coord[0], coord[1]])
+            });
+            marcador.setStyle(estilos.punto_carga_nueva);
+
+            return marcador;
+        }
 
         function getMarcadorParadaIda(coord) {
             var marcador = new ol.Feature({

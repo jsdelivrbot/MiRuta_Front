@@ -23,6 +23,13 @@
             getEmpresas: getEmpresas,
             // USUARIOS
             saveUsuario: saveUsuario,
+            // PUNTO DE INTERES
+            savePtoInteres: savePtoInteres,
+            updatePtoInteres: updatePtoInteres,
+            getPtoInteresByType: getPtoInteresByType,
+            // TIPO PUNTO DE INTERES
+            getTipoInteres: getTipoInteres,
+            getNamesTipoInteres: getNamesTipoInteres
         };
         return service;
 
@@ -262,5 +269,103 @@
 
             return promise;
         }
+
+        // ****************************** PUNTO INTERES *************************
+        // *********************************************************************
+        function savePtoInteres(punto){
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                url: path.SAVE_PTO_INETERES,
+                data: punto
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+
+        function updatePtoInteres(punto){
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'POST',
+                url: path.UPDATE_PTO_INTERES,
+                data: punto
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+
+        function getPtoInteresByType(tipo){
+            var defered = $q.defer();
+            var promise = defered.promise;
+            
+            $http({
+                method: 'GET',
+                url: path.GET_PUNTOS_BY_TIPO + "?tipo=" + tipo
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+
+        // ****************************** TIPO INTERES *************************
+        // *********************************************************************
+
+        function getTipoInteres(){
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'GET',
+                url: path.ALL_TIPO_INTERES
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+
+        function getNamesTipoInteres(){
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http({
+                method: 'GET',
+                url: path.NAMES_TIPO_INTERES
+            }).then(function successCallback(res) {
+                defered.resolve(res.data);
+            },
+                function errorCallback(err) {
+                    defered.reject(err)
+                }
+            );
+
+            return promise;
+        }
+
     }
 })()
