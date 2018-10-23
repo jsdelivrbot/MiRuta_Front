@@ -8,40 +8,19 @@
         ]);
 
     function SrvStyles(icon){
-
-        // var estilos = {
-        //     punto_carga_actual: new ol.style.Style({
-        //         image: new ol.style.Icon({
-        //             anchor: [0.5, 1],
-        //             src: icon.PUNTO_CARGA_ACTUAL
-        //         })
-        //     }),
-        //     punto_carga_nuevo: new ol.style.Style({
-        //         image: new ol.style.Icon({
-        //             anchor: [0.5, 1],
-        //             src: icon.PUNTO_CARGA_NUEVA
-        //         })
-        //     }),
-        //     punto_traslado_actual: new ol.style.Style({
-        //         image: new ol.style.Icon({
-        //             anchor: [0.5, 1],
-        //             src: icon.PUNTO_TRASLADO_ACTUAL
-        //         })
-        //     }),
-        //     punto_traslado_nuevo: new ol.style.Style({
-        //         image: new ol.style.Icon({
-        //             anchor: [0.5, 1],
-        //             src: icon.PUNTO_TRASLADO_NUEVO
-        //         })
-        //     })
-        // };
         
         var service = {
             // ************** pto interes ****************
             marcadorCargaActual: marcadorCargaActual,
             marcadorCargaNuevo: marcadorCargaNuevo,
             marcadorTrasladoActual: marcadorTrasladoActual,
-            marcadorTrasladoNuevo: marcadorTrasladoNuevo
+            marcadorTrasladoNuevo: marcadorTrasladoNuevo,
+            marcadorInicioRecorrido: marcadorInicioRecorrido,
+            marcadorFinRecorrido: marcadorFinRecorrido,
+            recorridoUnidad: recorridoUnidad,
+            puntoRecorrido: puntoRecorrido,
+            marcadorParadaIda: marcadorParadaIda,
+            marcadorParadaVuelta: marcadorParadaVuelta
         };
 
         return service;
@@ -50,25 +29,52 @@
         // ########################## FUNCIONES PUBLICAS ###############################
 
         function marcadorCargaActual(){
-            // return estilos.punto_carga_actual;
             var estilo = createStyleByIcon(icon.PUNTO_CARGA_ACTUAL);
             return estilo;
         }
 
         function marcadorCargaNuevo(){
-            // return estilos.punto_carga_nuevo;
             var estilo = createStyleByIcon(icon.PUNTO_CARGA_NUEVO);
             return estilo;
         }
 
         function marcadorTrasladoActual(){
-            // return estilos.punto_traslado_actual;
             var estilo = createStyleByIcon(icon.PUNTO_TRASLADO_ACTUAL);
             return estilo;
         }
+
         function marcadorTrasladoNuevo(){
-            // return estilos.punto_traslado_nuevo;
             var estilo = createStyleByIcon(icon.PUNTO_TRASLADO_NUEVO);
+            return estilo;
+        }
+
+        function marcadorInicioRecorrido(){
+            var estilo = createStyleByIcon(icon.PUNTO_INICIO_RECORRIDO);
+            return estilo;
+        }
+
+        function marcadorFinRecorrido(){
+            var estilo = createStyleByIcon(icon.PUNTO_FIN_RECORRIDO);
+            return estilo;
+        }
+
+        function recorridoUnidad(){
+            var estilo = createStyleRoute();
+            return estilo;
+        }
+
+        function puntoRecorrido(){
+            var estilo = createStylePtoRecorrido();
+            return estilo;
+        }
+
+        function marcadorParadaIda(){
+            var estilo = createStyleByIcon(icon.PARADA_IDA);
+            return estilo;
+        }
+
+        function marcadorParadaVuelta(){
+            var estilo = createStyleByIcon(icon.PARADA_VUELTA);
             return estilo;
         }
 
@@ -82,6 +88,35 @@
                     src: icon
                 })
             });
+            
+            return estilo;
+        }
+
+        function createStyleRoute(){
+            var estilo = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                //   width: 3.5, color: [40, 40, 40, 0.8]
+                    //width: 3.5, color: [211, 145, 58, 0.8]
+                    width: 3.5, color: [198, 119, 40, 0.7]
+                })
+            });
+            
+            return estilo;
+        }
+
+        function createStylePtoRecorrido(){
+            var estilo = new ol.style.Style({
+                image: new ol.style.Circle({
+                  radius: 6,
+                  stroke: new ol.style.Stroke({
+                    color: 'gray',
+                    width: 2
+                  }),
+                  fill: new ol.style.Fill({
+                    color: 'yellow'
+                  })
+                })
+              });
             
             return estilo;
         }

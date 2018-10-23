@@ -1,17 +1,59 @@
 <navuser></navuser>
 <div class="row" ng-controller="transportesController">
-    <div class="card col-sm-6 col-md-3">
-        <div class="card-header">
-            Info de transportes
-        </div>
+    <div class="card col-sm-4 col-md-4">
+        <div class="card-header border-info text-center">Datos de la unidad</div>
+        <div class="card-body border-info">
+            <div class="form-group">
+                <div class="collapse show" aria-labelledby="headingCreate" data-parent="#accordion">
+                    <label>Seleccione una unidad </label>
+                    <!-- <select class="custom-select" id="repeatSelect" ng-model="tipoSeleccionado">
+                        <option ng-repeat="tipo in tiposInteres | orderBy">{{nombre}}</option>
+                    </select> -->
+                    <select class="custom-select" ng-model="unidadSeleccionda" ng-click="changeUnidad()"
+                        ng-options="tipo.nombre for tipo in unidades | orderBy:'nombre' track by tipo.id"></select>
+                </div>
+            </div>
+            <div class="row form-group text-left" ng-hide="!hayUnidadSeleccionada">
+                <label for="exampleInputEmail1" class="col-sm-6 col-form-label">Nombre:</label>
+                <input type="text" class="form-control col-sm-6" id="nombrePuntoActual" 
+                    ng-model="unidadSeleccionda.nombre" readonly>
+            </div>
+            <div class="row form-group text-left" ng-hide="!hayUnidadSeleccionada">
+                <label for="exampleInputEmail1" class="col-sm-6 col-form-label">Frecuencia (min):</label>
+                <input type="text" class="form-control col-sm-6" id="nombrePuntoActual" 
+                    ng-model="unidadSeleccionda.frecuencia" readonly>
+            </div>
+            <div class="row form-group text-left" ng-hide="!hayUnidadSeleccionada">
+                <label for="exampleInputEmail1" class="col-sm-6 col-form-label">Inicio recorrido (HH/mm):</label>
+                <input type="text" class="form-control col-sm-6" id="nombrePuntoActual" 
+                    ng-model="unidadSeleccionda.horaInicio" readonly>
+            </div>
+            <div class="row form-group text-left" ng-hide="!hayUnidadSeleccionada">
+                <label for="exampleInputEmail1" class="col-sm-6 col-form-label">Fin recorrido (HH/mm):</label>
+                <input type="text" class="form-control col-sm-6" id="nombrePuntoActual" 
+                    ng-model="unidadSeleccionda.horaFin" readonly>
+            </div>
+            <div class="row form-group text-left" ng-hide="!hayUnidadSeleccionada">
+                <label for="exampleInputEmail1" class="col-sm-6 col-form-label">Precio boleto ($):</label>
+                <input type="text" class="form-control col-sm-6" id="nombrePuntoActual" 
+                    ng-model="unidadSeleccionda.precioBoleto" readonly>
+            </div>
+            <div class="text-center btn-group-sm" ng-hide="!hayUnidadSeleccionada">
+                <!-- <button type="button" class="btn btn-info" ng-click="dibujarParadas()">Ver Paradas</button> -->
+                <button type="button" class="btn btn-info" ng-click="mostrarParadas()">{{botonVerParadas}}</button>
+            </div>
+        </div> 
     </div>
 
-    <div class="card col-sm-6 col-md-9">
+    <!-- <div class="card col-sm-8 col-md-8">
         <div class="card-header">
             Este si es el MAPA.
         </div>
         <div class="container-fluid-map">
             <div id="map" class="map" style="position: fixed;"></div>
         </div>
+    </div> -->
+    <div class="card col-sm-8 col-md-8">
+        <div id="map" class="map" style="position: relative;"></div>
     </div>
 </div>
